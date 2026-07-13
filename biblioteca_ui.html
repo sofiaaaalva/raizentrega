@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Biblioteca de UI — RAÍZ Estudio</title>
+    <!-- Importación de Google Fonts: DM Sans -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap" rel="stylesheet">
+    
+    <style>
+        /* VARIABLES DE DISEÑO & PALETA DE COLORES (Extraídas directamente de la UI de RAÍZ) */
+        :root {
+            --color-crema: #f7e8d7;
+            --color-naranja: #ff510d;
+            --color-oscuro: #4c1505;
+            --color-texto-claro: #f7e8d7;
+            --color-texto-oscuro: #4c1505;
+            --font-main: 'DM Sans', sans-serif;
+            --transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        /* RESET & ESTILOS BASE */
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: var(--font-main);
+            background-color: var(--color-crema);
+            color: var(--color-texto-oscuro);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            padding-bottom: 100px;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: var(--transition);
+        }
+
+        /* HEADER */
+        .ui-header {
+            background-color: var(--color-oscuro);
+            color: var(--color-crema);
+            padding: 60px 8%;
+            border-bottom: 2px solid var(--color-naranja);
+        }
+
+        .ui-header h1 {
+            font-size: 3rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 10px;
+            color: var(--color-naranja);
+        }
+
+        .ui-header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            max-width: 800px;
+        }
+
+        /* NAVEGACIÓN RÁPIDA */
+        .ui-nav {
+            background-color: #3b0f03;
+            padding: 15px 8%;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .ui-nav a {
+            color: var(--color-crema);
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            padding: 5px 10px;
+            border-radius: 4px;
+        }
+
+        .ui-nav a:hover {
+            color: var(--color-naranja);
+            background-color: rgba(255, 81, 13, 0.1);
+        }
+
+        /* SECCIONES */
+        .ui-section {
+            padding: 80px 8%;
+            border-bottom: 1px solid rgba(76, 21, 5, 0.15);
+        }
+
+        .ui-section.dark {
+            background-color: var(--color-oscuro);
+            color: var(--color-crema);
+            background-image: url('imagenes/grid3.png');
+            background-repeat: repeat;
+            background-blend-mode: multiply;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.03em;
+            margin-bottom: 40px;
+            border-left: 5px solid var(--color-naranja);
+            padding-left: 15px;
+            color: var(--color-oscuro);
+        }
+
+        .dark .section-title {
+            color: var(--color-crema);
+        }
+
+        /* GRID DE COLORES */
+        .color-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 30px;
+        }
+
+        .color-card {
+            background: #fff;
+            border: 1px solid rgba(76, 21, 5, 0.15);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+
+        .color-block {
+            height: 150px;
+            width: 100%;
+        }
+
+        .color-info {
+            padding: 20px;
+        }
+
+        .color-name {
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 1.1rem;
+            margin-bottom: 5px;
+        }
+
+        .color-hex {
+            font-family: monospace;
+            color: #666;
+            font-size: 0.95rem;
+        }
+
+        /* TIPOGRAFÍAS */
+        .typo-specimen {
+       
+            padding: 40px;
+            border-radius: 8px;
+            border: 1px dashed var(--color-oscuro);
+        }
+
+        .typo-row {
+            margin-bottom: 30px;
+            padding-bottom: 30px;
+            border-bottom: 1px solid rgba(76, 21, 5, 0.1);
+        }
+
+        .typo-row:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+
+        .typo-label {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            color: var(--color-naranja);
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        /* BOTONES */
+        .buttons-showcase {
+            display: flex;
+            gap: 30px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        /* BOTÓN V4 OPTIMIZADO (RAÍZ HERO STYLE) */
+        .btn-raiz-naranja {
+            display: inline-flex;
+            justify-content: center;
+            gap: 10px;
+            align-items: center;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            font-size: 1.125rem;
+            background-color: #ff510d;
+            color: #f7e8d7;
+            font-weight: 600;
+            border: 2px solid #ff510d;
+            position: relative;
+            z-index: 10;
+            padding: 12px 24px;
+            overflow: hidden;
+            transition: var(--transition);
+        }
+
+        .btn-raiz-naranja::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            transition: all 0.7s;
+            left: -100%;
+            top: 0;
+            background-color: #f7e8d7;
+            z-index: -1;
+        }
+
+        .btn-raiz-naranja:hover::before {
+            left: 0;
+        }
+
+        .btn-raiz-naranja:hover {
+            border-color: #f7e8d7;
+            color: #ff510d;
+        }
+
+        .btn-raiz-naranja svg {
+            width: 16px;
+            height: 16px;
+            transition: all 0.3s;
+            transform: rotate(45deg);
+        }
+
+        .btn-raiz-naranja:hover svg {
+            color: #ff510d;
+            transform: rotate(90deg);
+        }
+
+        /* BOTÓN V4 OPTIMIZADO (RAÍZ OSCURO STYLE) */
+        .btn-raiz-oscuro {
+            display: inline-flex;
+            justify-content: center;
+            gap: 10px;
+            align-items: center;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            font-size: 1.125rem;
+            background-color: #4c1505;
+            color: #f7e8d7;
+            font-weight: 600;
+            border: 2px solid #4c1505;
+            position: relative;
+            z-index: 10;
+            padding: 12px 24px;
+            overflow: hidden;
+            transition: var(--transition);
+        }
+
+        .btn-raiz-oscuro::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            transition: all 0.7s;
+            left: -100%;
+            top: 0;
+            background-color: #f7e8d7;
+            z-index: -1;
+        }
+
+        .btn-raiz-oscuro:hover::before {
+            left: 0;
+        }
+
+        .btn-raiz-oscuro:hover {
+            border-color: #4c1505;
+            color: #4c1505;
+        }
+
+        .btn-raiz-oscuro svg {
+            width: 16px;
+            height: 16px;
+            transition: all 0.3s;
+            transform: rotate(45deg);
+        }
+
+        .btn-raiz-oscuro:hover svg {
+            color: #4c1505;
+            transform: rotate(90deg);
+        }
+
+        /* TARJETAS CURSO FRONT/BACK DE DEMOSTRACIÓN */
+        .demo-cards-wrapper {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            margin-top: 30px;
+        }
+
+        .feature-card-demo {
+            width: 100%;
+            height: 420px;
+            perspective: 1000px;
+            cursor: pointer;
+        }
+
+        .card-inner-demo {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            transform-style: preserve-3d;
+        }
+
+        .feature-card-demo.is-flipped .card-inner-demo {
+            transform: rotateY(180deg);
+        }
+
+        .card-front-demo, .card-back-demo {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            border: 2px solid var(--color-oscuro);
+            display: flex;
+            flex-direction: column;
+            box-sizing: border-box;
+            border-radius: 4px;
+        }
+
+        .card-front-demo {
+            background-color: var(--color-naranja);
+            justify-content: flex-end;
+            overflow: hidden;
+        }
+
+        .demo-img-bg {
+            height: 60%;
+            background: linear-gradient(rgba(0,0,0,0), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1533090161767-e6ffed986c88?auto=format&fit=crop&w=600&q=80') center/cover no-repeat;
+        }
+
+        .card-front-content-demo {
+            background-color: var(--color-crema);
+            padding: 24px 20px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card-front-content-demo h3 {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--color-oscuro);
+            margin-bottom: 15px;
+            text-transform: uppercase;
+        }
+
+        .card-meta-demo {
+            display: flex;
+            justify-content: space-between;
+            border-top: 1px solid rgba(76, 21, 5, 0.15);
+            padding-top: 15px;
+        }
+
+        .meta-item-demo {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .meta-label-demo {
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            color: var(--color-oscuro);
+            opacity: 0.8;
+        }
+
+        .meta-value-demo {
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: var(--color-oscuro);
+        }
+
+        .card-back-demo {
+            background-color: var(--color-naranja);
+            color: var(--color-crema);
+            padding: 30px 24px;
+            justify-content: space-between;
+            transform: rotateY(180deg);
+        }
+
+        .card-back-demo h3 {
+            font-size: 1.5rem;
+            text-transform: uppercase;
+            margin-bottom: 15px;
+        }
+
+        .card-back-demo p {
+            font-size: 0.95rem;
+            opacity: 0.9;
+            margin-bottom: 20px;
+        }
+
+        /* VOLANTAS Y TEXTOS */
+        .volanta {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--color-naranja);
+            font-weight: 700;
+            display: inline-block;
+            margin-bottom: 8px;
+        }
+
+        .dark .volanta {
+            color: var(--color-crema);
+        }
+
+        /* CAPÍTULO CÁPSULA (CARRUSEL INTERACTIVO PREVIEW) */
+        .capsula-preview {
+            background: #fff;
+            border: 1px solid rgba(76, 21, 5, 0.1);
+            padding: 40px;
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .capsula-img-placeholder {
+            width: 250px;
+            height: 250px;
+            background: var(--color-crema);
+            border-radius: 50%;
+            margin: 20px auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px dashed var(--color-naranja);
+            color: var(--color-oscuro);
+            font-weight: 700;
+        }
+
+        /* FOOTER DE LA GUÍA */
+        .ui-footer {
+            background-color: var(--color-oscuro);
+            color: var(--color-crema);
+            text-align: center;
+            padding: 40px;
+            font-size: 0.9rem;
+            border-top: 4px solid var(--color-naranja);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- MENÚ / HEADER DE LA BIBLIOTECA UI -->
+    <header class="ui-header">
+        <h1>RAÍZ — Guía de Estilos & UI</h1>
+        <p>Especificaciones técnicas, paleta cromática, componentes interactivos, tipografías y recursos de interfaz del nuevo movimiento técnico y educativo que redefine la restauración.</p>
+    </header>
+
+    <!-- NAVEGACIÓN RÁPIDA INTERNA -->
+    <nav class="ui-nav">
+        <a href="#colores">Paleta Cromática</a>
+        <a href="#tipografias">Sistemas Tipográficos</a>
+        <a href="#botones">Botones & Acciones</a>
+        <a href="#componentes">Tarjetas Interactivas</a>
+        <a href="#accesorios">Detalles Conceptuales</a>
+    </nav>
+
+    <!-- SECCIÓN 1: PALETA CROMÁTICA -->
+    <section id="colores" class="ui-section">
+        <h2 class="section-title">Paleta de Colores UI</h2>
+        <p style="margin-bottom: 30px;">La identidad visual de RAÍZ se asienta sobre contrastes de alta gama que combinan lo terrenal, lo rústico ebanista y el modernismo conceptual premium.</p>
+        
+        <div class="color-grid">
+            <!-- Crema -->
+            <div class="color-card">
+                <div class="color-block" style="background-color: #f7e8d7; border-bottom: 1px solid rgba(0,0,0,0.05);"></div>
+                <div class="color-info">
+                    <div class="color-name">Crema</div>
+                    <div class="color-hex">#f7e8d7</div>
+                    <p style="font-size: 0.85rem; opacity: 0.7; margin-top: 5px;">Fondo noble, aporta aire y elegancia natural.</p>
+                </div>
+            </div>
+
+            <!-- Naranja -->
+            <div class="color-card">
+                <div class="color-block" style="background-color: #ff510d;"></div>
+                <div class="color-info">
+                    <div class="color-name">Naranja</div>
+                    <div class="color-hex">#ff510d</div>
+                    <p style="font-size: 0.85rem; opacity: 0.7; margin-top: 5px;">Acento vibrante, conceptual y contemporáneo.</p>
+                </div>
+            </div>
+
+            <!-- Oscuro -->
+            <div class="color-card">
+                <div class="color-block" style="background-color: #4c1505;"></div>
+                <div class="color-info">
+                    <div class="color-name">Marrón</div>
+                    <div class="color-hex">#4c1505</div>
+                    <p style="font-size: 0.85rem; opacity: 0.7; margin-top: 5px;">Contraste profundo. Reemplaza al negro tradicional.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECCIÓN 2: SISTEMAS TIPOGRÁFICOS -->
+    <section id="tipografias" class="ui-section dark">
+        <h2 class="section-title">Tipografía y Jerarquías</h2>
+        <p style="margin-bottom: 30px; color: var(--color-crema);">Familia tipográfica <strong>DM Sans</strong></p>
+
+        <div class="typo-specimen">
+            <!-- H1 -->
+            <div class="typo-row">
+                <div class="typo-label">Título Principal (Hero H1 - 900 Ultra Bold Black)</div>
+                <h1 style="font-size: clamp(2rem, 4vw, 3.5rem); font-weight: 900; text-transform: uppercase; line-height: 1.1; color: var(--color-crema);">TÉCNICA CON VISIÓN DE AUTOR</h1>
+                <p style="font-size: 0.85rem; color: var(--color-crema); opacity: 0.7; margin-top: 10px;">clamp(2.5rem, 5.5vw, 4.2rem) / uppercase / letter-spacing: 0.02em</p>
+            </div>
+
+            <!-- H2 -->
+            <div class="typo-row">
+                <div class="typo-label">Título de Sección (H2 - 800 Extra Bold)</div>
+                <h2 style="font-size: 2.2rem; font-weight: 800; text-transform: uppercase; color: var(--color-crema);">Colección Cápsula</h2>
+                <p style="font-size: 0.85rem; color: var(--color-crema); opacity: 0.7; margin-top: 10px;">font-weight: 800 / text-transform: uppercase / letter-spacing: 0.02em</p>
+            </div>
+
+            <!-- Volanta -->
+            <div class="typo-row">
+                <div class="typo-label">Etiqueta / Volanta / Eyebrow (700 Bold)</div>
+                <span class="volanta">TRANSFORMACIONES DE NUESTROS ALUMNOS</span>
+                <p style="font-size: 0.85rem; color: var(--color-crema); opacity: 0.7; margin-top: 10px;">font-size: 0.75rem / text-transform: uppercase / letter-spacing: 0.05em</p>
+            </div>
+
+            <!-- Body -->
+            <div class="typo-row">
+                <div class="typo-label">Cuerpo de Texto / Párrafos (400 Regular)</div>
+                <p style="font-size: 1.1rem; line-height: 1.6; max-width: 700px; color: var(--color-crema);">Diagnosticar, reparar y recuperar muebles respetando su estructura e identidad mediante un lenguaje ebanista de vanguardia.</p>
+                <p style="font-size: 0.85rem; color: var(--color-crema); opacity: 0.7; margin-top: 10px;">font-size: 1rem - 1.1rem / line-height: 1.5 - 1.6</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECCIÓN 3: BOTONES Y ACCIONES -->
+    <section id="botones" class="ui-section">
+        <h2 class="section-title">Botones & Acciones (v4 Hover Effect)</h2>
+        <p style="margin-bottom: 30px;">Botones premium interactivos con transición de slide asimétrico y rotación sutil de flecha direccional.</p>
+
+        <div class="buttons-showcase">
+            <div>
+                <p style="font-size: 0.8rem; font-weight: bold; margin-bottom: 10px; text-transform: uppercase;">Acento Principal (Naranja)</p>
+                <a href="#cursos" class="btn-raiz-naranja">
+                    <span>Unirme</span>
+                    <svg viewBox="0 0 16 19" fill="currentColor" xmlns="http://www.w3.org/2000/svg"> 
+                        <path d="M7 18C7 18.5523 7.44772 19 8 19C8.55228 19 9 18.5523 9 18H7ZM8.70711 0.292893C8.31658 -0.0976311 7.68342 -0.0976311 7.29289 0.292893L0.928932 6.65685C0.538408 7.04738 0.538408 7.68054 0.928932 8.07107C1.31946 8.46159 1.95262 8.46159 2.34315 8.07107L8 2.41421L13.6569 8.07107C14.0474 8.46159 14.6805 8.46159 15.0711 8.07107C15.4616 7.68054 15.4616 7.04738 15.0711 6.65685L8.70711 0.292893ZM9 18L9 1H7L7 18H9Z"></path>
+                    </svg>
+                </a>
+            </div>
+
+            <div>
+                <p style="font-size: 0.8rem; font-weight: bold; margin-bottom: 10px; text-transform: uppercase;">Acento Secundario (Marrón Oscuro)</p>
+                <a href="#cursos" class="btn-raiz-oscuro">
+                    <span>Ver curso</span>
+                    <svg viewBox="0 0 16 19" fill="currentColor" xmlns="http://www.w3.org/2000/svg"> 
+                        <path d="M7 18C7 18.5523 7.44772 19 8 19C8.55228 19 9 18.5523 9 18H7ZM8.70711 0.292893C8.31658 -0.0976311 7.68342 -0.0976311 7.29289 0.292893L0.928932 6.65685C0.538408 7.04738 0.538408 7.68054 0.928932 8.07107C1.31946 8.46159 1.95262 8.46159 2.34315 8.07107L8 2.41421L13.6569 8.07107C14.0474 8.46159 14.6805 8.46159 15.0711 8.07107C15.4616 7.68054 15.4616 7.04738 15.0711 6.65685L8.70711 0.292893ZM9 18L9 1H7L7 18H9Z"></path>
+                    </svg>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECCIÓN 4: TARJETAS INTERACTIVAS (FEATURE FLIP CARDS) -->
+    <section id="componentes" class="ui-section dark">
+        <h2 class="section-title">Tarjetas de Cursos (Interactive Flip)</h2>
+        <p style="margin-bottom: 30px; color: var(--color-crema);">Las tarjetas de formación técnica utilizan un sistema de doble cara interactiva con metadatos estructurados en la base. <em>(Haz clic para simular el flip)</em></p>
+
+        <div class="demo-cards-wrapper">
+            <!-- Demo 1 -->
+            <div class="feature-card-demo" onclick="this.classList.toggle('is-flipped')">
+                <div class="card-inner-demo">
+                    <!-- Front -->
+                    <div class="card-front-demo">
+                        <div class="demo-img-bg"></div>
+                        <div class="card-front-content-demo">
+                            <h3>Restauración integral</h3>
+                            <div class="card-meta-demo">
+                                <div class="meta-item-demo">
+                                    <span class="meta-label-demo">Nivel</span>
+                                    <span class="meta-value-demo">Inicial</span>
+                                </div>
+                                <div class="meta-item-demo">
+                                    <span class="meta-label-demo">Duración</span>
+                                    <span class="meta-value-demo">12 semanas</span>
+                                </div>
+                                <div class="meta-item-demo">
+                                    <span class="meta-label-demo">Modalidad</span>
+                                    <span class="meta-value-demo">Presencial</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Back -->
+                    <div class="card-back-demo">
+                        <div>
+                            <h3>Restauración integral</h3>
+                            <p>Diagnosticar, reparar y recuperar muebles respetando su estructura, preservando los materiales de ebanistería tradicional.</p>
+                            <p style="font-weight: 700; font-size: 1.2rem; color: var(--color-oscuro);">$120.000</p>
+                        </div>
+                        <span style="font-size: 0.8rem; text-transform: uppercase; font-weight: 700; color: var(--color-oscuro);">Voltear tarjeta</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECCIÓN 5: ACCESORIOS Y DETALLES CONCEPTUALES -->
+    <section id="accesorios" class="ui-section">
+        <h2 class="section-title">Detalles Conceptuales</h2>
+        <p style="margin-bottom: 30px;">Elementos gráficos e interactivos específicos que potencian el aire de marca de ebanistería experimental.</p>
+
+        <div class="color-grid">
+            <!-- Bloque Icono vector -->
+            <div class="color-card" style="padding: 24px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;">
+                <svg style="width: 50px; height: 50px; color: var(--color-naranja); margin-bottom: 15px;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 382" fill="currentColor">
+                    <path d="M311.28,112.3l-15.78-15.74-228.05,227.55,3.23,12.19,11.46,4.46,229.14-228.47ZM84.38,354.46c-3.74,2.6-13.89,5.11-18.74,6.75-21.75,7.33-43.75,14.06-65.64,20.94l28.49-82.72L242.3,86.21,327.75.4l.39-.4,56.24,56.17-.38.37L84.38,354.46ZM240.42,103.69L43.1,300.59l3.6,11.75,11.83,4.31,229.12-227.92-15.77-16.45-31.46,31.42ZM328.12,16.13l-31.82,32.45,39.97,39.35,31.25-31.76-39.4-40.03ZM287.73,56.59l-7.96,7.81,40.11,39.32,7.8-8-39.95-39.13ZM38.43,321.33s-1.9-5.94-2.44-6.55c-1.18.78-7.49,19.54-8.09,21.23l18.2,18.5s15.89-4.32,22.9-6.05c-3.02-1.55-6.8-3.51-6.8-3.51,0,0-5.08-15.74-6.9-17.24-3.28-1.99-16.86-6.38-16.86-6.38ZM34.87,359.31l-11.31-11.15-5.56,16.77,16.87-5.62Z"/>
+                </svg>
+                <div class="color-name">Iconografía</div>
+                <p style="font-size: 0.8rem; opacity: 0.7;">Iconos vectores lineales en #ff510d.</p>
+            </div>
+
+            <!-- Formulario UI Specimen -->
+            <div class="color-card" style="padding: 24px;">
+                <div class="color-name" style="margin-bottom: 15px;">Foco de Entrada de Formularios</div>
+                <div style="display: flex; flex-direction: column; gap: 10px;">
+                    <input type="text" placeholder="Ejemplo de campo de texto" style="width:100%; padding: 12px; border: 1px solid var(--color-oscuro); background: transparent; font-family: inherit;" />
+                    <p style="font-size: 0.75rem; color: var(--color-naranja);">Borde #4c1505 que cambia a #ff510d al hacer foco.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="ui-footer">
+        <p>&copy; 2026 RAÍZ Estudio — Guía técnica de Estilos UI</p>
+        <p style="font-size: 0.8rem; opacity: 0.6; margin-top: 5px;">Preservación proyectual y vanguardia técnica.</p>
+    </footer>
+
+</body>
+</html>
