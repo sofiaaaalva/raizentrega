@@ -1,0 +1,4170 @@
+/* VARIABLES DE DISEÑO & PALETA DE COLORES */
+:root {
+    --color-crema: #f7e8d7;
+    --color-naranja: #ff510d;
+    --color-oscuro: #4c1505;
+    --color-texto-claro: #f7e8d7;
+    --color-texto-oscuro: #4c1505;
+    --font-main: 'DM Sans', sans-serif;
+    --transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+/* RESET & ESTILOS BASE */
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: var(--font-main);
+    background-color: var(--color-crema);
+    color: var(--color-texto-oscuro);
+    overflow-x: hidden;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    text-wrap: balance;
+    orphans: 3;
+    widows: 3;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+    transition: var(--transition);
+}
+
+ul {
+    list-style: none;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover;
+}
+
+/* COMPONENTES REUTILIZABLES ACCESIBLES */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 15px 32px;
+    font-weight: 700;
+    font-size: 0.9rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    border: 1px solid transparent;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.btn-primary {
+    background-color: var(--color-naranja);
+    color: var(--color-crema);
+}
+
+.btn-primary:hover {
+    background-color: var(--color-crema);
+    border-color: var(--color-naranja);
+    color: var(--color-naranja);
+}
+
+.btn-secondary {
+    background-color: var(--color-oscuro);
+    color: var(--color-crema);
+}
+
+.btn-secondary:hover {
+    background-color: var(--color-crema);
+    border-color: var(--color-oscuro);
+    color: var(--color-oscuro);
+}
+
+.section-padding {
+    padding: 120px 8%;
+}
+
+@media (max-width: 768px) {
+    .section-padding {
+        padding: 50px 5%;
+    }
+}
+
+
+/* SECCIÓN 1: HERO & HEADER (WIREFRAME 1) */
+.header {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 40px 8%;
+    z-index: 10;
+}
+
+.logo {
+    font-size: 1.6rem;
+    font-weight: 900;
+    letter-spacing: 0.02em;
+    color: var(--color-crema);
+}
+
+.logo:hover {
+    color: var(--color-naranja);
+}
+
+.nav-menu {
+    display: flex;
+    gap: 40px;
+    color: #f7e8d7;
+}
+
+.nav-link {
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+}
+
+.nav-link:hover {
+    color: var(--color-naranja);
+}
+
+/* --- ESTILOS DEL BOTÓN HAMBURGUESA --- */
+.menu-toggle {
+    display: none; /* Por defecto oculto en pantallas grandes */
+    flex-direction: column;
+    gap: 6px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    z-index: 20;
+}
+
+/* Las 3 líneas de la hamburguesa hechas con CSS */
+.menu-toggle span {
+    display: block;
+    width: 30px;
+    height: 3px;
+    background-color: var(--color-crema, #f7e8d7);
+    transition: all 0.3s ease;
+}
+
+/* --- RESPONSIVE: MENOS DE 1024PX --- */
+@media (max-width: 1023px) {
+    .menu-toggle {
+        display: flex; /* Mostramos la hamburguesa */
+    }
+
+.nav-menu {
+        position: fixed;
+        top: 0;
+        right: -100%; 
+        
+        /* SOLUCIÓN: Ocupa el 65% pero se estira automáticamente si el texto largo lo requiere */
+        width: 70% !important;
+        min-width: max-content !important; 
+        height: 100vh;
+        background-color: var(--color-oscuro); 
+        
+        display: flex !important;
+        flex-direction: column;
+        justify-content: center;
+        
+        /* Volvemos a la alineación a la izquierda con el padding que te gustó */
+        align-items: flex-start !important; 
+        padding-left: 45px !important; 
+        padding-right: 45px !important;
+        box-sizing: border-box !important;
+        
+        gap: 35px;
+        transition: right 0.4s ease; 
+        z-index: 15;
+    }
+
+    /* Aseguramos que los enlaces mantengan su estructura limpia a la izquierda */
+    .nav-menu .nav-link {
+        white-space: nowrap !important;
+        text-align: left !important;
+        width: 100% !important;
+    }
+
+    /* Clase que añadiremos con JS para mostrar el menú */
+    .nav-menu.active {
+        right: 0;
+    }
+
+    /* Animación opcional: transforma la hamburguesa en una 'X' cuando está activo */
+    .menu-toggle.active span:nth-child(1) {
+        transform: rotate(45deg) translate(6px, 6px);
+    }
+    .menu-toggle.active span:nth-child(2) {
+        opacity: 0;
+    }
+    .menu-toggle.active span:nth-child(3) {
+        transform: rotate(-45deg) translate(6px, -7px);
+    }
+}
+
+
+.hero {
+height: 100vh;
+    position: relative;
+    display: flex;
+    
+    /* 1. Cambiamos center por flex-end para mandarlo abajo */
+    align-items: flex-end; 
+    
+    /* 2. Mantenemos el padding lateral, pero sumamos uno abajo (ej: 80px) */
+    /* El orden es: arriba (0) derecha (8%) abajo (80px) izquierda (8%) */
+    padding: 0 8% 30px 8%; 
+    
+    overflow: hidden;
+}
+
+.hero-media-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    opacity: 1;
+    background: url('imagenes/hero4.3.png') center/cover no-repeat;
+}
+
+@media (max-width: 1023px) {
+   .hero-media-bg {
+        /* 1. Volvemos al cover original y seguro que tenías antes */
+        background-size: cover !important;
+        
+        /* 2. Mantenemos el porcentaje horizontal que te había gustado */
+        background-position: 74% center !important; 
+        
+        /* 3. SUBIMOS LA IMAGEN: Le damos un margen superior negativo */
+        margin-top: -100px !important; 
+        
+        /* 4. Le sumamos esos mismos 50px al alto total para que al subir 
+              no te quede un hueco vacío abajo en la base del hero */
+        height: calc(100% + 100px) !important; 
+}
+}
+
+.hero-media-bg.hero-pagina-2 {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    opacity: 1;
+    background: url('imagenes/herodetalle3.2.png') center/cover no-repeat;
+}
+
+@media (max-width: 1023px) {
+   .hero-media-bg.hero-pagina-2 {
+        /* 1. Volvemos al cover original y seguro que tenías antes */
+        background-size: cover !important;
+        
+        /* 2. Mantenemos el porcentaje horizontal que te había gustado */
+        background-position: 64% center !important; 
+        
+        /* 3. SUBIMOS LA IMAGEN: Le damos un margen superior negativo */
+        margin-top: -100px !important; 
+        
+        /* 4. Le sumamos esos mismos 50px al alto total para que al subir 
+              no te quede un hueco vacío abajo en la base del hero */
+        height: calc(100% + 100px) !important; 
+}
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 850px;
+    margin-bottom: 15px;
+}
+
+.hero-content h1 {
+    font-weight: 900;
+    line-height: 1.1;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    margin-top: 5px;
+    font-size: clamp(2.5rem, 5.5vw, 4.2rem);
+    color: var(--color-crema);
+    margin-bottom: 20px;
+}
+
+.hero-content p {
+    font-size: clamp(1.1rem, 2vw, 1.35rem);
+    color: var(--color-crema);
+    margin-bottom: 30px;
+    max-width: 650px;
+    line-height: 1.4;
+}
+
+/* --- RESPONSIVE: MENOS DE 480PX --- */
+@media (max-width: 479px) {
+    .hero-content p .txt-extra {
+        display: none;
+    }
+    
+    h1 .txt-oculto {
+    display: none !important;
+  }
+}
+
+/* OCULTAR TEXTO DEL BOTÓN EN PANTALLAS ULTRA CHICAS */
+@media (max-width: 340px) {
+    .txt-recortar {
+        display: none !important;
+    }
+}
+
+
+/* SECCIÓN 2: PILARES DE LA MARCA (3 COLUMNAS) */
+.pilares {
+    background-color: var(--color-naranja);
+    background-image: url('imagenes/grid3.png');
+  
+  /* Configuraciones para la trama: */
+  background-repeat: repeat;    /* Hace que la textura se repita en mosaico infinitamente */
+  background-size: auto;        /* Mantiene el tamaño real de los píxeles de la trama */
+  background-attachment: fixed;
+  background-position: 0 0;
+  /* FUSIONA LA TRAMA CON TU COLOR: 
+     'multiply' la oscurece e integra, 'overlay' la suaviza. Proba cuál te queda mejor */
+  background-blend-mode: multiply;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 60px;
+    border-top: 1px solid rgba(76, 21, 5, 0.15);
+}
+
+.pilar-col {
+display: flex;
+    flex-direction: column;
+    /* 1. Centra el ícono y elementos flex horizontalmente */
+    align-items: center; 
+    
+    /* 2. Centra las líneas de texto del h3 y el p */
+    text-align: center;
+}
+
+.pilar-icon {
+    width: 65px;                  /* Tamaño más grande */
+    height: 65px;                 /* Tamaño más grande */
+    margin-bottom: 25px;
+    color: var(--color-crema);    /* Aplicamos tu variable de color crema */
+}
+
+.pilar-icon svg {
+    width: 100%;
+    height: 100%;
+    display: block;               /* Asegura el centrado correcto */
+    object-fit: cover;
+}
+
+.pilar-col h3 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    line-height: 1.1;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    color: var(--color-oscuro);
+    margin-top: 5px;
+    margin-bottom: 15px;
+    color: var(--color-crema);
+}
+
+.pilar-col p {
+    font-size: 0.95rem;
+    color: var(--color-crema);
+    opacity: 0.9;
+}
+
+@media (max-width: 767px) {
+    .pilares {
+        /* FORZAMOS A QUE OCUPE EL ALTO COMPLETO DE LA PANTALLA */
+        min-height: 100dvh !important; 
+        
+        /* Usamos flex vertical para distribuir el espacio de forma perfecta */
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: center !important; /* Centra el grupo de pilares verticalmente */
+        
+        /* Reducimos el gap para que entren holgados en pantallas chicas */
+        gap: 90px !important; 
+        padding: 40px 8% !important;
+        box-sizing: border-box !important;
+    }
+
+    /* Mantenemos los tamaños chicos y prolijos que ya te habían gustado: */
+    .pilar-icon {
+        width: 55px !important;
+        height: 55px !important;
+        margin-bottom: 12px !important;
+    }
+
+    .pilar-col h3 {
+        font-size: 1.2rem !important;
+        margin-bottom: 6px !important;
+    }
+
+    .pilar-col p {
+        font-size: 0.9rem !important;
+        line-height: 1.4 !important;
+        max-width: 290px;
+        margin: 0 auto;
+    }
+}
+
+/* --- RESPONSIVE: MENOS DE 480PX --- */
+@media (max-width: 479px) {
+    .pilar-col p .txt-extra-pilar {
+        display: none;
+    }
+}
+
+/* SECCIÓN 3: MODALIDAD - VISIÓN - PROPÓSITO */
+.vision-section {
+    background-color: var(--color-crema);
+    background-image: url('imagenes/grid4.png');
+  
+  /* Configuraciones para la trama: */
+  background-repeat: repeat;    /* Hace que la textura se repita en mosaico infinitamente */
+  background-size: auto;        /* Mantiene el tamaño real de los píxeles de la trama */
+  background-attachment: fixed;
+  background-position: 0 0;
+  /* FUSIONA LA TRAMA CON TU COLOR: 
+     'multiply' la oscurece e integra, 'overlay' la suaviza. Proba cuál te queda mejor */
+  background-blend-mode: multiply;
+    display: grid;
+    grid-template-columns: 1fr 1.3fr; 
+    gap: 80px; 
+    align-items: center;
+    border-top: 1px solid rgba(76, 21, 5, 0.15);
+}
+
+.vision-content h2 {
+    font-size: clamp(2rem, 2.5vw, 2.8rem);
+    font-weight: 800;
+    line-height: 1.1;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    color: var(--color-oscuro);
+    margin-top: 5px;
+    margin-bottom: 20px;
+}
+
+.vision-content p {
+    font-size: 1.05rem;
+    color: var(--color-oscuro);
+    margin-bottom: 20px;
+}
+
+.vision-image-wrapper {
+    position: relative; 
+    width: 100%;
+    aspect-ratio: 3 / 2; 
+    background-color: rgba(76, 21, 5, 0.05);
+    overflow: hidden;
+}
+
+.vision-image-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.vision-image-wrapper img,
+.vision-image-wrapper video {
+    width: 100%;
+    height: 108%;
+    object-fit: cover;
+    transition: opacity 0.4s ease; /* Transición suave */
+}
+
+.vision-image-wrapper video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0; /* Oculto por defecto */
+    pointer-events: none;
+}
+
+/* EFECTO VISUAL: Se activa mediante JavaScript */
+.vision-image-wrapper.active video {
+    opacity: 1; /* Muestra el video */
+}
+
+.vision-image-wrapper.active img {
+    opacity: 0.8; /* Opacidad sutil para la imagen de fondo */
+}
+
+@media (max-width: 768px) {
+    .vision-section {
+        grid-template-columns: 1fr; /* Pasa a tener una sola columna */
+        gap: 10px; /* Reducimos el espacio excesivo */
+    }
+    .vision-image-wrapper {
+        height: 400px;
+    }
+}
+
+/* --- RESPONSIVE: MENOS DE 480PX --- */
+@media (max-width: 479px) {
+    /* Oculta el fragmento en la sección Visión */
+    .vision-content p .vision-extra {
+        display: none;
+    }
+}
+
+/* SECCIÓN 4: CAROUSEL DE RESEÑAS ANTES/DESPUÉS */
+.reviews-section {
+    background-color: var(--color-crema);
+    background-image: url('imagenes/grid4.png');
+  
+  /* Configuraciones para la trama: */
+  background-repeat: repeat;    /* Hace que la textura se repita en mosaico infinitamente */
+  background-size: auto;        /* Mantiene el tamaño real de los píxeles de la trama */
+  background-attachment: fixed;
+  background-position: 0 0;
+  /* FUSIONA LA TRAMA CON TU COLOR: 
+     'multiply' la oscurece e integra, 'overlay' la suaviza. Proba cuál te queda mejor */
+  background-blend-mode: multiply;
+   /* border-top: 1px solid rgba(76, 21, 5, 0.15);*/
+}
+
+
+.review-card {
+    display: grid;
+    grid-template-columns: 0.9fr 1.1fr;
+    gap: 60px;
+    align-items: center;
+}
+
+.quadrant h3{
+    font-size: 1.5rem;
+    font-weight: 600;
+    line-height: 1.1;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    font-size: 1.5rem;
+    color: var(--color-oscuro);
+    margin-bottom: 20px;
+}
+
+
+.review-text-side p {
+    font-size: 1.1rem;
+    font-style: italic;
+    margin-bottom: 30px;
+    line-height: 1.6;
+}
+
+.review-text-side span {
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-weight: 700;
+    color: var(--color-naranja);
+}
+
+.review-images-side {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.compare-img-box {
+    position: relative;
+    height: 380px;
+    background-color: rgba(76, 21, 5, 0.05);
+}
+
+.compare-img-box img {
+    width: 100%;
+    height: 100%;
+}
+
+.compare-img-box label {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    background: var(--color-oscuro);
+    color: var(--color-crema);
+    padding: 6px 12px;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-weight: 700;
+}
+
+.carousel-controls {
+    display: flex;
+    gap: 12px;
+    margin-top: 50px;
+}
+
+.control-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: rgba(76, 21, 5, 0.2);
+    border: none;
+    cursor: pointer;
+}
+
+.control-dot.active {
+    background-color: var(--color-naranja);
+    transform: scale(1.2);
+}
+
+@media (max-width: 992px) {
+    .review-card {
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
+    .compare-img-box {
+        height: 280px;
+    }
+}
+
+/* INTEGRACIÓN DE ENTORNO OSCURO (CONTIENE SECCIONES 5 Y 6) */
+.dark-zone {
+    background-color: var(--color-oscuro);
+    background-image: url('imagenes/grid3.png');
+  
+  /* Configuraciones para la trama: */
+  background-repeat: repeat;    /* Hace que la textura se repita en mosaico infinitamente */
+  background-size: auto;        /* Mantiene el tamaño real de los píxeles de la trama */
+  background-attachment: fixed;
+  background-position: 0 0;
+  /* FUSIONA LA TRAMA CON TU COLOR: 
+     'multiply' la oscurece e integra, 'overlay' la suaviza. Proba cuál te queda mejor */
+  background-blend-mode: multiply;
+    color: var(--color-texto-claro);
+}
+
+/* SECCIÓN 5: 3 TARJETAS CURSOS */
+
+
+.sec-unica {
+    box-sizing: border-box;
+    width: 100%;
+    padding: 40px var(--padding-horizontal, 5%); /* Ajusta según tus variables globales */
+    background-color: var(--color-oscuro); /* El color de tu fondo */
+    
+    /* Forzamos el comportamiento de pantalla completa en escritorio */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 60px;
+}
+
+@media (min-width: 1025px) {
+    .sec-unica {
+        height: 100vh;
+        min-height: 750px; /* Evita que los elementos colapsen si la pantalla es muy baja */
+        overflow: hidden;
+    }
+}
+
+/* Encabezado */
+.sec-unica h2 {
+    font-size: clamp(2rem, 2.5vw, 2.8rem);
+    font-weight: 800;
+    line-height: 1.1;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    color: var(--color-crema);
+    margin-top: 5px;
+    margin-bottom: 30px; /* Reducido de 60px para optimizar altura */
+}
+
+/* ==========================================================================
+   NUEVA REJILLA VERTICAL (3 COLUMNAS PURAS)
+   ========================================================================== */
+.top-wrapper {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    justify-content: center;
+}
+
+.cards-grid-3col {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 25px;
+    flex-grow: 1;
+}
+
+@media (min-width: 768px) {
+    .cards-grid-3col {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+/* Adaptación de altura de tarjetas para no romper el espacio vertical disponible */
+.feature-card {
+    padding: 0 !important; 
+    background-color: transparent !important;
+    border: none !important;
+    min-height: 250px;
+    height: 100%; /* Toma la altura del contenedor padre flex */
+    perspective: 1000px; 
+    cursor: pointer;
+}
+
+.card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    text-align: left;
+    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    transform-style: preserve-3d; 
+}
+
+/* Mantén tus .card-front, .card-back y efectos de hover/flipped exactamente iguales */
+.feature-card.is-flipped .card-inner {
+    transform: rotateY(180deg);
+}
+
+.card-front, .card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    -webkit-backface-visibility: hidden; 
+    backface-visibility: hidden;
+    border: 2px solid var(--color-oscuro);
+    padding: 35px 25px; /* Un toque más ajustado para pantallas compactas */
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    transition: var(--transition);
+}
+
+.card-back {
+    justify-content: space-between;
+    transform: rotateY(180deg); 
+    background-color: var(--color-naranja);
+}
+
+
+/* 1. La grilla principal ahora controla las filas de todas las tarjetas juntas */
+.cards-grid-3col {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* Tus 3 columnas verticales */
+    
+    /* Creamos dos filas globales: arriba la imagen (1fr) y abajo el texto (auto) */
+    grid-template-rows: 1fr auto; 
+    gap: 20px; /* El espacio que tengas entre tarjetas */
+}
+
+/* 2. Hacemos que la tarjeta ocupe ambas filas globales de la grilla */
+.feature-card {
+    grid-row: span 2; /* Ocupa la fila de la imagen y la del texto */
+    display: grid;
+    grid-template-rows: subgrid; /* ¡La magia! Hereda las filas de la grilla principal */
+}
+
+/* 3. El contenedor interno (necesario por el efecto flip) también hereda las filas */
+.card-inner {
+    grid-row: span 2;
+    display: grid;
+    grid-template-rows: subgrid;
+}
+
+/* 4. La cara frontal se adapta al subgrid */
+.card-front {
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    height: 100%;
+    padding: 0 !important;
+    overflow: hidden;
+
+    /* NUEVO TRUCO DE RECORTE COMPLETO */
+    background-clip: padding-box; 
+
+    background-color: var(--color-naranja);
+    background-repeat: no-repeat;
+}
+
+.card-front-content {
+    background-color: var(--color-crema); /* Tu color de fondo */
+    width: 100%;
+    padding: 24px 20px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+
+    border-bottom-left-radius: inherit;
+    border-bottom-right-radius: inherit;
+
+    /* ELIMINAMOS los trucos anteriores de -1px y box-shadow para limpiar el código */
+    margin: 0; 
+    
+    /* TRUCO CLAVE: Un borde sólido de 1px abajo y a los costados del mismo color que el fondo.
+       Esto obliga al navegador a estirar el renderizado del color y tapa el error del subpíxel. */
+    border-top: none; /* Arriba no lo necesitas porque está la imagen */
+}
+
+.sec-unica h3 {
+    font-size: 1.4rem;
+    font-weight: 700;
+    line-height: 1.2;
+    text-transform: uppercase;
+    letter-spacing: 0.01em;
+    color: var(--color-crema);
+}
+
+.card-front .volanta {
+    display: inline-block; /* O 'block', para que acepte el margen vertical correctamente */
+    margin-bottom: 10px;   /* Cambiá los px por la distancia que necesites */
+}
+
+.feature-card p {
+    font-size: 0.95rem;
+    line-height: 1.5;
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+
+.card-action-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding-top: 15px;
+    color: var(--color-naranja);
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    letter-spacing: 0.08em;
+    font-family: var(--font-main);
+}
+
+.card-action-btn svg {
+    width: 20px;
+    height: 20px;
+    transition: var(--transition);
+    stroke: var(--color-naranja);
+}
+
+.feature-card:hover .card-action-btn svg {
+    transform: translateX(6px);
+}
+
+.feature-card:hover .card-front,
+.feature-card:hover .card-back {
+    border-color: var(--color-naranja);
+    background-color: var(--color-naranja);
+}
+
+.card-back .card-meta {
+    margin-top: 20px; 
+}
+
+
+/* ==========================================================================
+   RESPONSIVE MOBILE: MENOR A 1024PX (Carrusel horizontal con reordenamiento)
+   ========================================================================== */
+@media (max-width: 1024px) {
+    .sec-unica {
+        height: auto !important;
+        padding: 40px 0 40px 5%; /* Padding 0 a la derecha para que el carrusel pegue al borde al scrollear */
+        overflow: hidden;
+    }
+
+    .top-wrapper {
+        width: 100%;
+    }
+
+    .header-block {
+        padding-right: 5%; /* Le devolvemos el padding al título para que no quede pegado al borde */
+    }
+
+    /* Transformamos la grilla en un contenedor flex de scroll horizontal */
+    .cards-grid-3col {
+        display: flex !important;
+        flex-direction: row !important;
+        gap: 20px !important;
+        overflow-x: auto !important; /* Activa el scroll horizontal */
+        overflow-y: hidden;
+        scroll-snap-type: x mandatory; /* Hace que las tarjetas encajen como imán al scrollear */
+        -webkit-overflow-scrolling: touch; /* Scroll ultra suave en iOS */
+        padding-bottom: 25px; /* Espacio para que no se corten las sombras al hacer hover/flip */
+        padding-right: 5%; /* Espacio al final del carrusel */
+    }
+
+    /* Ocultamos la barra de scroll visual para mantener el diseño premium y limpio */
+    .cards-grid-3col::-webkit-scrollbar {
+        display: none;
+    }
+
+    /* Forzamos a cada tarjeta a tener un tamaño fijo de visualización en el carrusel */
+    .feature-card {
+        flex: 0 0 290px !important; /* Cada tarjeta va a medir 290px de ancho fijos */
+        height: 420px !important;    /* Le damos un alto fijo cómodo para mobile */
+        scroll-snap-align: start;   /* Punto de anclaje para el efecto imán */
+    }
+
+@media (min-width: 768px) and (max-width: 1028px) {
+    /* ... (Mantené tus estilos anteriores de .sec-unica y .cards-grid-3col igual) ... */
+
+    .card-front {
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: flex-end !important; /* Asegura que empuje el bloque crema hacia abajo */
+    }
+
+    .card-front-content {
+        display: flex !important;
+        flex-direction: column !important;
+        /* AQUÍ ESTÁ EL TRUCO: */
+        justify-content: flex-end !important; /* Empuja el título y los metadatos hacia la base interna */
+        box-sizing: border-box !important;
+    }
+
+    /* Forzamos a que el H3 y los metadatos no floten hacia arriba */
+    .card-front h3 {
+        margin-top: auto !important; /* Absorbe el aire sobrante ARRIBA del título */
+        margin-bottom: 15px !important;
+    }
+    
+    .card-meta {
+        margin-top: 0 !important; /* Evita espacios raros */
+    }
+}
+
+@media (max-width: 767px) {
+    /* Forzamos a que en mobile el bloque crema mida lo mismo en todas las tarjetas de forma natural */
+.card-front-content {
+        /* AGRANDAMOS LA CAJA EN MOBILE PARA DARLE AIRE */
+        height: 180px !important; 
+        padding-top: 40px !important; /* Aire arriba en mobile */
+        
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: flex-end !important;
+        margin-top: auto !important;
+        box-sizing: border-box !important;
+    }
+
+    .card-front h3 {
+        margin-top: auto !important;
+        margin-bottom: 10px !important;
+        font-size: 1.2rem !important; /* Un toque más chico para que no desborde en 140px */
+    }
+
+}
+
+@media (max-width: 1024px) {
+    /* ... Tus estilos anteriores del carrusel móvil se mantienen igual ... */
+
+    /* Contenedor de los puntos indicadores */
+    .carousel-dots-container {
+        display: flex !important; /* Lo hacemos visible solo en mobile */
+        justify-content: center;
+        align-items: center;
+        gap: 12px;
+        margin-top: -50px !important;
+        width: 100%;
+        padding-right: 5%; /* Alineación óptica con tu padding lateral */
+        box-sizing: border-box;
+    }
+
+    /* Estilo base para cada punto */
+    .carousel-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background-color: rgba(247, 232, 215, 0.3); /* Crema con opacidad */
+        transition: all 0.3s ease;
+    }
+
+    /* Estilo para el punto de la tarjeta activa en pantalla */
+    .carousel-dot.active {
+        background-color: var(--color-naranja, #ff510d); /* Tu color naranja */
+        transform: scale(1.3);
+    }
+}
+
+/* Ocultar en pantallas de escritorio y tablets */
+@media (min-width: 1024px) {
+    .carousel-dots-container {
+        display: none !important;
+    }
+}
+
+    /* --------------------------------------------------------------------------
+       MAGIA DEL ORDEN: Ponemos la tarjeta 2 primero, seguida por la 1 y la 3
+       -------------------------------------------------------------------------- */
+    /* Targeteamos por su orden de aparición en el HTML */
+    .cards-grid-3col .feature-card:nth-child(1) {
+        order: 2; /* Pasa al segundo lugar */
+    }
+    
+    .cards-grid-3col .feature-card:nth-child(2) {
+        order: 1; /* Pasa al primer lugar al entrar en mobile */
+    }
+    
+    .cards-grid-3col .feature-card:nth-child(3) {
+        order: 3; /* Se mantiene al final */
+    }
+
+    /* Ajustes internos para que las caras frontales y traseras respondan al alto fijo */
+    .card-inner, .card-front, .card-back {
+        height: 100% !important;
+        display: flex !important;
+        flex-direction: column !important;
+    }
+
+.card-front-content {
+        display: block;
+        height: auto; 
+        margin-top: auto !important;
+    }
+
+}
+
+/* ==========================================================================
+   METADATOS EN EL FRONT DE LA TARJETA
+   ========================================================================== */
+
+/* Separamos el título del nuevo bloque empujándolo todo hacia abajo */
+.card-front h3 {
+    margin-bottom: 15px;
+    color: var(--color-oscuro);
+}
+
+/* Contenedor principal de las 3 columnas */
+.card-meta {
+    /* Cambiamos Grid por Flexbox */
+    display: flex; 
+    
+    /* Empuja la col 1 a la izquierda, la 3 a la derecha, y deja la 2 exactamente en el centro */
+    justify-content: space-between; 
+    
+    width: 100%;
+    padding-top: 15px;
+    border-top: 1px solid color-mix(in srgb, var(--color-oscuro) 20%, transparent);
+}
+
+/* Cada columna individual */
+.meta-item {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    
+    /* Alineación de los textos internos */
+    align-items: flex-start; 
+}
+
+/* Texto secundario (Nivel, Duración, etc.) */
+.meta-label {
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--color-oscuro);
+    opacity: 0.9;
+}
+
+/* Texto principal (Inicial, 12 semanas, Presencial) */
+.meta-value {
+    font-size: 1rem;
+    font-weight: 500;
+    letter-spacing: 0.01em;
+    color: var(--color-oscuro);
+    white-space: nowrap; /* Evita que "12 semanas" se rompa en dos líneas */
+}
+
+/* En pantallas muy pequeñas, si el texto llega a apretarse mucho */
+@media (max-width: 1200px) {
+    .meta-value {
+        font-size: 0.75rem;
+    }
+}
+
+/* ==========================================================================
+   ESTILOS EXCLUSIVOS PARA EL DORSO DE LAS CARDS
+   ========================================================================== */
+/* Contenedor que agrupa h3, p, precio y metadatos arriba */
+.card-back-body {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+/* Estilos para el bloque de Precio */
+.card-price {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    margin-top: 15px; /* Distancia respecto al párrafo */
+}
+
+.price-label {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--color-oscuro);
+    font-weight: 500;
+}
+
+.price-value {
+    font-size: 1.3rem; /* Destaca pero sin competir con el H3 */
+    font-weight: 700;
+    color: var(--color-oscuro); /* Tono destacado para el precio */
+    letter-spacing: 0.02em;
+}
+
+/* Las columnas de datos técnicos ahora se quedan arriba debajo del precio */
+.card-meta-back {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-top: 20px; /* Distancia limpia respecto al bloque de precio superior */
+    padding-top: 12px;
+}
+
+@media (max-width: 1024px) {
+    .card-meta-back {
+        margin-top: 0;
+        margin-bottom: 20px;
+    }
+}
+
+.meta-item-back {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 4px;
+    align-items: flex-start;
+}
+
+.meta-label-back {
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--color-crema);
+    opacity: 0.9;
+}
+
+.meta-value-back {
+    font-size: 1rem;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    color: var(--color-crema);
+    white-space: nowrap;
+}
+
+/* El enlace del botón trasero es lo único que se va abajo por completo */
+.card-back a {
+    margin-top: auto; 
+    width: 100%;
+    padding-top: 15px;
+}
+
+
+
+/* ==========================================================================
+   BLOQUE INFERIOR (3 COLUMNAS INFORMATIVAS CON ICONOS)
+   ========================================================================== */
+.columnasiconos{
+    background-color: var(--color-crema);
+    background-image: url('imagenes/grid4.png');
+    background-repeat: repeat;
+    background-size: auto;
+    background-attachment: fixed;
+    background-position: 0 0;
+    background-blend-mode: multiply;
+    display: grid;
+}
+
+.bottom-info-block {
+    margin-top: 8%;
+    margin-bottom: 8%;
+    margin-left: 8%;
+    margin-right: 8%;
+}
+
+.columns-info-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+}
+
+/* Forzamos a la columna a centrar todo su contenido horizontalmente */
+.info-col {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+/* Contenedor limpio del Icono */
+.info-icon-wrapper {
+    width: 65px;          /* Alto y ancho controlado para tus futuros iconos */
+    height: 65px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;  /* Despega el icono del h4 de abajo */
+    color: var(--color-naranja); /* Hereda el color directamente a los SVGs */
+}
+
+/* Estilo para cuando pongas vectores SVG o imágenes img */
+.info-icon-wrapper svg,
+.info-icon-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain; /* Evita que las imágenes se deformen al reemplazarlas */
+}
+
+.info-col h4 {
+    font-size: 1.15rem;
+    font-weight: 500;
+    line-height: 1.2;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    margin-bottom: 10px;
+    color: var(--color-naranja);
+}
+
+.info-col p {
+    font-size: 0.9rem;
+    opacity: 0.8;
+    line-height: 1.5;
+    max-width: 280px; /* Evita que el texto centrado se estire demasiado hacia los lados */
+}
+
+
+/* ==========================================================================
+   RESPONSIVE (3 COLUMNAS HASTA 768PX, LUEGO APILADAS EN VERTICAL)
+   ========================================================================== */
+
+/* En pantallas menores a 768px se rompe la grilla y se ponen una arriba de la otra */
+@media (max-width: 767px) {
+    .bottom-info-block {
+        /* Optimizamos los márgenes en móviles para aprovechar mejor el espacio */
+        margin-top: 56px !important;
+        margin-bottom: 56px !important;
+        margin-left: 5% !important;
+        margin-right: 5% !important;
+    }
+
+    .columns-info-grid {
+        grid-template-columns: 1fr !important; /* Una sola columna (una arriba de la otra) */
+        gap: 60px !important; /* Espacio cómodo de separación vertical entre bloques */
+    }
+
+    /* Opcional: Achicamos levemente el ícono para que sea más armónico en celulares */
+    .info-icon-wrapper {
+        width: 55px !important;
+        height: 55px !important;
+        margin-bottom: 15px !important;
+    }
+
+    .info-col h4 {
+        font-size: 1.2rem !important;
+        margin-bottom: 8px !important;
+    }
+
+    .info-col p {
+        font-size: 0.9rem !important;
+        max-width: 260px; /* Mantiene el bloque de texto centrado bien compacto */
+    }
+    .course-benefits {
+        grid-template-columns: 1fr !important; /* Pasa a una sola columna */
+        gap: 16px !important;
+    }
+
+    .benefit-item {
+        border-left: none !important; /* 1. Eliminamos el borde nativo que mide el 100% */
+        position: relative !important;  /* 2. Eje obligatorio para posicionar la nueva línea */
+        padding-left: 16px !important;  /* Espacio para que el texto no pise la línea */
+        padding-top: 5px !important;
+        padding-bottom: 5px !important;
+    }
+
+    /* 3. CREAMOS LA NUEVA LÍNEA MÁS CORTA */
+    .benefit-item::before {
+        content: "" !important;
+        position: absolute !important;
+        left: 0 !important;
+        top: 50% !important;
+        transform: translateY(-50%) !important; /* La centra perfectamente respecto al bloque */
+        
+        width: 2px !important;                  /* El mismo grosor que tu borde original */
+        height: 60% !important;                 /* LA CLAVE: Controlá acá qué tan baja/corta querés la línea (ej: 50%, 60%) */
+        background-color: var(--color-crema) !important; /* El color original */
+    }
+}
+
+
+
+/* SECCIÓN 7: IMAGEN GRANDE E INFO CURSO */
+.cta-course-section {
+    background-color: var(--color-naranja);
+    background-image: url('imagenes/grid4.png');
+  
+  /* Configuraciones para la trama: */
+  background-repeat: repeat;    /* Hace que la textura se repita en mosaico infinitamente */
+  background-size: auto;        /* Mantiene el tamaño real de los píxeles de la trama */
+  background-attachment: fixed;
+  background-position: 0 0;
+  /* FUSIONA LA TRAMA CON TU COLOR: 
+     'multiply' la oscurece e integra, 'overlay' la suaviza. Proba cuál te queda mejor */
+  background-blend-mode: multiply;
+    display: grid;
+    grid-template-columns: 1.2fr 0.8fr;
+    padding: 0;
+}
+
+.cta-image-side {
+    height: 650px;
+    background-color: rgba(76, 21, 5, 0.05);
+}
+
+.cta-image-side img {
+    width: 100%;
+    height: 100%;
+}
+
+.cta-content-side {
+    padding: 100px 10%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.cta-content-side h2 {
+    font-size: clamp(2rem, 3.5vw, 2.8rem);
+    font-weight: 800;
+    line-height: 1.1;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    margin-top: 5px;
+    margin-bottom: 10px;
+    color: var(--color-crema);
+}
+
+.cta-content-side p {
+    font-size: 1.1rem;
+    margin-bottom: 8%;
+    color: var(--color-crema);
+}
+
+/* Contenedor para alinear precio y botón */
+.purchase-actions {
+    display: flex;
+    align-items: center;
+    gap: 25px; /* Espacio entre el precio y el botón */
+    flex-wrap: wrap; /* Por si el espacio es muy chico, se acomodan solos */
+}
+
+.precio {
+    font-size: clamp(1.8rem, 3vw, 2.4rem); /* Un toque más equilibrado para ir al lado del botón */
+    font-weight: 800;
+    color: var(--color-oscuro); /* Cambiado a crema para que lea perfecto sobre el fondo oscuro */
+    letter-spacing: 0.02em;
+    margin-bottom: 0; /* Eliminamos el margin-bottom para que no rompa la alineación vertical */
+    line-height: 1;
+}
+
+/* Opcional: Si en celulares querés que el precio quede arriba del botón y centrado */
+@media (max-width: 480px) {
+    .purchase-actions {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+        width: 100%;
+    }
+    
+    .purchase-actions a {
+        width: 100%; /* El botón ocupa todo el ancho en celulares */
+    }
+}
+
+@media (max-width: 992px) {
+    .cta-course-section {
+        grid-template-columns: 1fr !important;
+    }
+
+    /* OCULTAMOS LA COLUMNA DE LA IMAGEN COMPLETAMENTE */
+    .cta-image-side {
+        display: none !important;
+    }
+
+    /* Le damos un padding equilibrado al texto para que respire en tabletas y móviles */
+    .cta-content-side {
+        padding: 60px 8% !important;
+        width: 100% !important;
+        box-sizing: border-box !important;
+    }
+}
+
+/* Contenedor de beneficios */
+.course-benefits {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin-bottom: 8%; /* Separa los beneficios del botón de compra */
+    width: 100%;
+}
+
+/* Items individuales */
+.benefit-item {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    color: var(--color-crema);
+    border-left: 2px solid var(--color-crema); /* Una línea sutil a la izquierda de cada item */
+    padding-left: 12px;
+
+    /* Define la propiedad a animar, la duración y la curva de velocidad */
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    
+    /* Asegura que el escalado no se corte si el contenedor tiene overflow hidden */
+    transform-origin: center center; 
+    
+    /* Opcional: un fondo muy sutil para que el efecto se note más al agrandarse */
+    background-color: rgba(247, 232, 215, 0); /* Transparente por defecto */
+    padding-top: 10px; /* Un poco de padding extra para el fondo */
+    padding-bottom: 10px;
+}
+
+.benefit-item:hover {
+    /* Agrandamos el elemento un 5% (1.05) */
+    transform: scale(1.05);
+    
+    /* Opcional: oscurecemos un poco el fondo al hacer hover para dar profundidad */
+    background-color: rgba(247, 232, 215, 0.05); 
+    
+    /* Opcional: agregamos una sombra suave para separarlo del fondo */
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    
+    /* Aseguramos que la línea del borde se mantenga sólida */
+    border-left-color: var(--color-crema);
+}
+
+.benefit-item strong {
+    font-size: 1.2rem;
+    font-weight: 700;
+}
+
+.benefit-item span {
+    font-size: 0.9rem;
+    line-height: 1.3;
+    opacity: 0.9;
+}
+
+/* Ajuste Responsivo (Celulares) */
+@media (max-width: 768px) {
+    .course-benefits {
+        grid-template-columns: 1fr; /* Pasa a una sola columna en pantallas chicas */
+        gap: 16px;
+    }
+}
+
+
+/* SECCIÓN 8: PREGUNTAS FRECUENTES (ACORDEÓN) */
+.faq-section {
+    background-color: var(--color-crema);
+    background-image: url('imagenes/grid4.png');
+  
+  /* Configuraciones para la trama: */
+  background-repeat: repeat;    /* Hace que la textura se repita en mosaico infinitamente */
+  background-size: auto;        /* Mantiene el tamaño real de los píxeles de la trama */
+  background-attachment: fixed;
+  background-position: 0 0;
+  /* FUSIONA LA TRAMA CON TU COLOR: 
+     'multiply' la oscurece e integra, 'overlay' la suaviza. Proba cuál te queda mejor */
+  background-blend-mode: multiply;
+}
+
+.faq-wrapper {
+    max-width: 850px;
+    margin: 0 auto;
+}
+
+.faq-section h2 {
+    font-size: clamp(2rem, 2.5vw, 2.8rem);
+    font-weight: 800;
+    line-height: 1.1;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    color: var(--color-oscuro);
+    margin-top: 5px;
+    margin-bottom: 50px;
+    text-align: left;
+}
+
+.faq-item {
+    border-bottom: 1px solid rgba(76, 21, 5, 0.15);
+}
+
+.faq-trigger {
+    width: 100%;
+    background: none;
+    border: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 25px 0;
+    font-family: var(--font-main);
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--color-oscuro);
+    text-transform: uppercase;
+    cursor: pointer;
+    text-align: left;
+}
+
+.faq-icon-marker {
+    font-size: 1.4rem;
+    color: var(--color-naranja);
+    font-weight: 300;
+}
+
+.faq-content {
+    padding: 0 0 25px 0;
+    font-size: 1rem;
+    color: var(--color-oscuro);
+    opacity: 0.85;
+    line-height: 1.6;
+}
+
+/* MODIFICACIÓN: Ocultar y preparar la animación */
+.faq-content {
+    max-height: 0;
+    overflow: hidden;
+    padding: 0; /* Quitamos el padding vertical inicial para que no ocupe espacio */
+    font-size: 1rem;
+    color: var(--color-oscuro);
+    opacity: 0;
+    line-height: 1.6;
+    transition: max-height 0.3s ease, opacity 0.3s ease, padding 0.3s ease;
+}
+
+/* NUEVO: Estado cuando el acordeón está abierto */
+.faq-item.active .faq-content {
+    max-height: 300px; /* Un alto máximo estimado que cubra bien tu texto */
+    padding: 0 0 25px 0; /* Devolvemos el padding cuando se abre */
+    opacity: 0.85;
+}
+
+/* OPCIONAL: Si quieres que el marcador ("—") rote o cambie de color al abrirse */
+.faq-item.active .faq-icon-marker {
+    transform: rotate(180deg);
+    transition: transform 0.3s ease;
+}
+
+/* --- CONTENEDOR DE LOS ICONOS --- */
+.faq-icon-marker {
+    position: relative;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* --- CONTENEDOR DE LOS ICONOS --- */
+.faq-icon-marker {
+    position: relative;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Estilos base para ambos SVGs */
+.faq-icon {
+    position: absolute;
+    width: 24px;
+    height: 24px;
+    stroke: var(--color-naranja);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+/* --- ESTADO CERRADO (Por defecto) --- */
+.faq-arrow-down {
+    opacity: 1;
+    transform: rotate(0deg);
+}
+
+.faq-icon-minus {
+    opacity: 0;
+    transform: rotate(-90deg); /* El guion empieza girado */
+}
+
+/* --- ESTADO ABIERTO (.active) --- */
+
+/* La flecha hacia abajo se oculta y gira */
+.faq-item.active .faq-arrow-down {
+    opacity: 0;
+    transform: rotate(180deg);
+}
+
+/* El guion se vuelve visible y vuelve a su posición original */
+.faq-item.active .faq-icon-minus {
+    opacity: 1;
+    transform: rotate(0deg);
+}
+
+
+/* --- MANTENER ESTILOS DE CONTENIDO DE LA RESPUESTA --- */
+.faq-content {
+    max-height: 0;
+    overflow: hidden;
+    padding: 0;
+    font-size: 1rem;
+    color: var(--color-oscuro);
+    opacity: 0;
+    line-height: 1.6;
+    transition: max-height 0.3s ease, opacity 0.3s ease, padding 0.3s ease;
+}
+
+.faq-item.active .faq-content {
+    max-height: 300px;
+    padding: 0 0 25px 0;
+    opacity: 0.85;
+}
+
+
+/* SECCIÓN 10: FOOTER (WIREFRAME 10) */
+.footer {
+    background-color: var(--color-crema);
+    color: var(--color-texto-claro);
+    padding: 100px 8% 40px 8%;
+    border-top: 1px solid rgba(247, 232, 215, 0.1);
+}
+
+.footer-main {
+    display: grid;
+    grid-template-columns: 1.4fr repeat(3, 1fr);
+    gap: 60px;
+    margin-bottom: 80px;
+}
+
+.footer-brand h2 {
+    font-size: clamp(2rem, 2.5vw, 2.8rem);
+    font-weight: 800;
+    line-height: 1.1;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    margin-top: 5px;
+    color: var(--color-naranja);
+    margin-bottom: 20px;
+}
+
+.footer-brand p {
+    font-size: 0.95rem;
+    opacity: 0.7;
+    max-width: 300px;
+    color: var(--color-oscuro);
+}
+
+.footer-title {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--color-naranja);
+    margin-bottom: 25px;
+    font-weight: 700;
+}
+
+.footer-links li {
+    margin-bottom: 14px;
+    font-size: 0.95rem;
+    font-weight: 400;
+    color: var(--color-oscuro);
+}
+
+.footer-links a {
+    font-size: 0.95rem;
+    opacity: 0.8;
+    color: var(--color-oscuro);
+}
+
+.footer-links a:hover {
+    color: var(--color-naranja);
+    opacity: 1;
+}
+
+.footer-bottom {
+    padding-top: 35px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.85rem;
+    opacity: 0.5;
+    color: var(--color-oscuro);
+}
+
+@media (max-width: 992px) {
+    .footer-main {
+        grid-template-columns: 1fr 1fr;
+        gap: 40px;
+    }
+}
+@media (max-width: 576px) {
+    .footer-main {
+        grid-template-columns: 1fr;
+    }
+    .footer-bottom {
+        flex-direction: column;
+        gap: 20px;
+        text-align: center;
+    }
+}
+
+/* ==========================================================================
+   ESTILOS ESPECÍFICOS - SECCIÓN 4 (CARRUSEL ASIMÉTRICO EDITORIAL)
+   ========================================================================== */
+.reviews-section {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+.reviews-header {
+    margin-bottom: 50px;
+}
+
+.reviews-header h2 {
+    font-size: clamp(2rem, 2.5vw, 2.8rem);
+    font-weight: 800;
+    line-height: 1.1;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    color: var(--color-oscuro);
+    margin-top: 5px;
+    margin-bottom: 8px;
+}
+
+.reviews-header p {
+    font-size: 0.95rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--color-naranja);
+    font-weight: 700;
+}
+
+/* Visor que enmascara las tarjetas que quedan fuera de pantalla */
+.carousel-viewport {
+    --card-width: 580px; 
+    width: var(--card-width);
+    max-width: 100%; 
+    overflow: hidden; 
+    position: relative;
+    margin: 0 auto;
+    /* Dejamos el viewport limpio para que actúe como máscara perfecta */
+    padding: 20px 2px;
+    margin-top: -20px; 
+    margin-bottom: -20px;
+}
+
+.carousel-track {
+    display: flex;
+    gap: 35px; 
+    width: max-content; 
+    will-change: transform;
+    /* Agregamos el espacio aquí para que acompañe a CADA tarjeta y su hover */
+    padding: 6px 2px; 
+    margin-top: -6px;
+    margin-bottom: -6px;
+}
+
+/* DISEÑO DE LA TARJETA EAMES (Por defecto: Vertical en Mobile < 768px) */
+.eames-card {
+    flex-shrink: 0;
+    width: 100%; 
+    box-sizing: border-box; 
+    height: 75vh; 
+    max-height: 650px; 
+    display: grid;
+    grid-template-columns: 1.2fr 0.8fr; 
+    grid-template-rows: 35fr 60fr; 
+    
+    /* Forzamos el gap a 0 para que los cuadrantes se peguen perfectamente */
+    gap: 0; 
+    background-color: transparent;
+    
+    /* Borde exterior único de 1px */
+    border: 1px solid var(--color-oscuro);
+    
+    cursor: default;
+    pointer-events: auto; 
+    position: relative; 
+    will-change: transform; 
+    overflow: hidden;
+    transform: none;
+    opacity: 1;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.eames-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0px 10px 30px #ff530f2d;
+}
+
+.eames-card .quadrant {
+    z-index: auto;
+}
+
+/* Cuadrantes individuales */
+.quadrant {
+    position: relative;
+    overflow: hidden;
+    background-color: var(--color-crema);
+    width: 100%;
+    height: 100%;
+    position: relative;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+}
+
+.quadrant img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Clave para que no se deformen al estirar la tarjeta verticalmente */
+    display: block;
+    filter: grayscale(15%);
+    transition: var(--transition);
+}
+
+.eames-card:hover .quadrant img {
+    filter: grayscale(0%);
+}
+
+
+/* Ubicación de cuadrantes en Mobile (2x2) */
+.quad-final {
+    grid-column: 1;
+    grid-row: 1;
+    border-right: 1px solid var(--color-oscuro);
+    border-bottom: 1px solid var(--color-oscuro);
+}
+
+.quad-text {
+    grid-column: 1;
+    grid-row: 2;
+    padding: 40px 30px 50px 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    border-right: 1px solid var(--color-oscuro);
+}
+
+.quad-before {
+    grid-column: 2;
+    grid-row: 1;
+    display: block; /* Visible en mobile */
+    border-bottom: 1px solid var(--color-oscuro);
+}
+
+.quad-process {
+    grid-column: 2;
+    grid-row: 2;
+}
+
+
+/* Detalles tipográficos internos estilo afiche suizo/Eames */
+.quad-text .text-wrapper {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+
+.volanta-card{
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--color-naranja);
+    font-weight: 700;
+    margin-top: auto;
+}
+
+
+.volanta{
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--color-naranja);
+    font-weight: 700;
+}
+
+.volanta-oscura{
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--color-oscuro);
+    font-weight: 700;
+}
+
+.volanta-fondooscuro{
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--color-oscuro);
+    background-color: var(--color-crema);
+    font-weight: 700;
+    padding-left: 0.8%;
+    padding-right: 0.8%;
+    padding-bottom: 0.1%;
+    padding-top: 0.3%;
+    margin-bottom: 2%;
+}
+
+
+.volanta-crema{
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--color-crema);
+    font-weight: 700;
+}
+
+.quad-text .volanta {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--color-naranja);
+    font-weight: 700;
+    margin-bottom: 5px;
+}
+
+.quad-text h3 {
+    font-size: 1.4rem;
+    color: var(--color-oscuro);
+    margin-bottom: 15px;
+    letter-spacing: -0.01em;
+}
+
+.quad-text p {
+    font-size: 1.2rem;
+    line-height: 1.5;
+    color: var(--color-oscuro);
+    opacity: 0.9;
+    font-weight: 400;
+    text-align:left;
+}
+
+.quad-text .author {
+    margin-top: 10px;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    font-weight: 700;
+    color: var(--color-oscuro);
+    opacity: 0.7;
+}
+
+/* Etiquetas minimalistas sobre las fotos */
+.quad-tag {
+    position: absolute;
+    bottom: 15px;
+    left: 15px;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-weight: 700;
+    background-color: var(--color-oscuro);
+    color: var(--color-crema);
+    padding: 4px 8px;
+    z-index: 2;
+}
+
+.quad-tag.text-dark {
+    background-color: transparent;
+    color: var(--color-oscuro);
+    border: 1px solid var(--color-oscuro);
+    backdrop-filter: blur(4px);
+}
+
+.carousel-nav-container {
+    display: flex;
+    justify-content: center; /* Centra las flechas horizontalmente */
+    align-items: center;
+    gap: 20px; /* Espacio entre la flecha izquierda y derecha */
+    position: relative; /* Cambiado de absolute a relative para que baje */
+    top: 0;
+    left: 0;
+    right: 0;
+    transform: none; /* Eliminamos el centrado vertical de desktop */
+    margin-top: 30px; /* Separación entre la tarjeta del carrusel y las flechas */
+    pointer-events: auto; /* Activamos eventos para toda la barra */
+    z-index: 5;
+}
+
+.carousel-arrow {
+    background: none;
+    border: none;
+    cursor: pointer;
+    pointer-events: auto; /* Activa clicks solo en la flecha */
+    padding: 10px;
+    width: 60px;
+    height: 35px;
+    transition: var(--transition);
+}
+
+.carousel-arrow svg {
+    width: 100%;
+    height: 100%;
+    stroke: var(--color-oscuro);
+    stroke-width: 1.2;
+    transition: var(--transition);
+}
+
+.carousel-arrow:hover svg {
+    stroke: var(--color-naranja);
+    transform: scaleX(1.15);
+}
+
+.carousel-arrow.arrow-left:hover svg {
+    transform: scaleX(1.15) translateX(-4px);
+}
+
+.carousel-arrow.arrow-right:hover svg {
+    transform: scaleX(1.15) translateX(4px);
+}
+
+.carousel-arrow.is-hidden {
+    opacity: 0;
+    pointer-events: none;
+    cursor: default;
+    transition: opacity 0.3s ease; /* Transición suave para cuando aparezca */
+}
+
+/* ==========================================================================
+   DESKTOP / PANTALLAS MAYORES A 768px (Cambio a Formato Horizontal de 3 Cuadrantes)
+   ========================================================================== */
+@media (min-width: 769px) {
+    .carousel-viewport {
+        --card-width: 950px; /* Tu ancho deseado para escritorio */
+    }
+
+    .eames-card {
+        display: grid;
+        grid-template-columns: 1fr 1.2fr 1fr; 
+        grid-template-rows: 1fr; 
+        height: 420px; 
+        max-height: 420px;
+    }
+
+.quad-final, .quad-text, .quad-before {
+        border: none;
+    }
+
+    .quad-before {
+        display: none;
+    }
+
+    .quad-final {
+        grid-column: 1;
+        grid-row: 1;
+        border-right: 1px solid var(--color-oscuro);
+    }
+
+    .quad-text {
+        grid-column: 2;
+        grid-row: 1;
+        padding: 35px;
+        justify-content: center; 
+        border-right: 1px solid var(--color-oscuro);
+    }
+
+    .quad-process {
+        grid-column: 3;
+        grid-row: 1;
+    }
+
+    .carousel-nav-container {
+        position: absolute;
+        top: 50%;
+        left: 12%;
+        right: 12%;
+        transform: translateY(-20%);
+        justify-content: space-between; /* Separa una a la izquierda y otra a la derecha */
+        margin-top: 0;
+        pointer-events: none; /* Comportamiento original de desktop */
+    }
+}
+
+/* --- RESPONSIVE: MENOS DE 768PX (ALTURA FIJA DE PANTALLA) --- */
+@media (max-width: 767px) {
+    .reviews-section {
+        height: 100dvh;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        padding: 25px 5%;
+        box-sizing: border-box;
+        overflow: hidden;
+    }
+
+    .reviews-header {
+        margin-bottom: 15px;
+    }
+
+/* 1. Definimos el alto estricto en el Viewport */
+    .carousel-viewport {
+        flex-grow: 1;
+        display: flex;
+        align-items: stretch; /* <-- CAMBIAR center por stretch para estirar el track */
+        width: 100%;
+        padding: 0;
+        margin: 0;
+        height: calc(100dvh - 200px); /* <-- Forzamos el alto acá */
+    }
+
+    /* 2. El track debe heredar el alto y no colapsar */
+    .carousel-track {
+        display: flex;
+        gap: 35px; 
+        width: max-content; 
+        height: 100%; /* <-- Asegura que el contenedor de las tarjetas ocupe todo el alto */
+    }
+
+/* 3. Las tarjetas se clavan al 100% del padre */
+    .eames-card {
+        height: 100% !important; /* Ahora el 100% es idéntico para todas */
+        max-height: none !important; /* Limpiamos el max-height viejo */
+        
+        grid-template-columns: repeat(2, 1fr) !important;
+        grid-template-rows: repeat(2, 1fr) !important;
+    }
+
+    /* Reacomodamos los 4 cuadrantes en sentido de las agujas del reloj o tipo tablero */
+    .quad-final {
+        grid-column: 1 !important;
+        grid-row: 1 !important;
+        border-right: 1px solid var(--color-oscuro);
+        border-bottom: 1px solid var(--color-oscuro);
+    }
+
+    .quad-before {
+        grid-column: 2 !important;
+        grid-row: 1 !important;
+        border-bottom: 1px solid var(--color-oscuro);
+        border-left: none;
+    }
+
+.quad-text {
+        grid-column: 1 !important;
+        grid-row: 2 !important;
+        padding: 15px;
+        border-right: 1px solid var(--color-oscuro);
+        
+        display: flex;
+        flex-direction: column;
+        /* 1. Cambiamos de center/space-between a flex-end para empujar todo abajo */
+        justify-content: flex-end; 
+    }
+
+    .quad-process {
+        grid-column: 2 !important;
+        grid-row: 2 !important;
+    }
+
+.quad-text p {
+        font-size: 0.85rem !important;
+        line-height: 1.25 !important;
+        margin-top: 4px;
+        margin-bottom: 0; /* Quitamos el margin-bottom: auto que te di antes */
+    }
+
+    .quad-text .author {
+        margin-top: 5px;
+        font-size: 0.75rem;
+    }
+
+    .volanta-card {
+        font-size: 0.65rem;
+    }
+
+    .carousel-nav-container {
+        margin-top: 15px;
+    }
+
+    /* Ajuste para las volantas dentro de las tarjetas */
+    .quad-text .volanta-card,
+    .quad-text .volanta {
+        line-height: 1.1;       /* Une las líneas si el texto llega a ocupar dos renglones */
+        margin-bottom: 4px;     /* Reduce la separación con el párrafo/título de abajo */
+        margin-top: 0;          /* Evita que se empuje innecesariamente hacia abajo */
+    }
+
+    .quad-text h3 {
+        font-size: 1.1rem !important;
+        line-height: 1.1 !important;  /* Interlineado súper compacto para títulos */
+        margin-top: 2px;
+        margin-bottom: 8px;
+    }
+
+    /* 2. Quitamos los márgenes automáticos que puedan estar separando los elementos */
+    .quad-text .text-wrapper {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end; /* Fuerza el contenido del contenedor interno también hacia abajo */
+        height: auto; /* Evitamos que ocupe el 100% de alto para que no se estire */
+    }
+
+    .quad-text .author {
+        margin-top: 6px; /* Un espacio pequeño y controlado entre el párrafo y el autor */
+    }
+
+/* Volanta principal de la sección (afuera de las tarjetas) */
+    .reviews-header .volanta {
+        line-height: 1 !important;
+        margin-bottom: 6px; /* Ajusta la separación con el H2 si quedó muy pegado */
+    }
+
+    /* Título principal H2 de la sección */
+    .reviews-header h2 {
+        line-height: 1.1 !important; /* Junta las líneas del título principal */
+        margin-bottom: 6px;
+    }
+
+    /* Subtítulo H3 de la sección */
+    .reviews-header .subtitulo {
+        line-height: 1.3 !important; /* Junta las líneas del subtítulo */
+        margin-top: 0;
+    }
+
+html body #experiencias .reviews-header span.volanta,
+    html body #experiencias .reviews-header p {
+        display: block !important;
+        line-height: 1.3 !important;
+        margin-bottom: 6px !important;
+        padding-bottom: 0 !important;
+    }
+}
+
+/* ==========================================================================
+   SECCION GALERIA CAPSULA (CORREGIDO Y LIMPIO)
+   ========================================================================== */
+
+.capsula {
+  width: 100%;
+  background-color: var(--color-crema); /* Cambiado a tu variable de fondo oscuro */
+  background-image: url('imagenes/grid3.png');
+  
+  /* Configuraciones para la trama: */
+  background-repeat: repeat;    /* Hace que la textura se repita en mosaico infinitamente */
+  background-size: auto;        /* Mantiene el tamaño real de los píxeles de la trama */
+  background-attachment: fixed;
+  background-position: 0 0;
+  /* FUSIONA LA TRAMA CON TU COLOR: 
+     'multiply' la oscurece e integra, 'overlay' la suaviza. Proba cuál te queda mejor */
+  background-blend-mode: multiply;
+  padding: 100px 5% 100px 5%;
+  text-align: center;
+  position: relative;
+  box-sizing: border-box;
+}
+
+.eyebrow {
+  font-family: var(--font-main);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  color: var(--color-naranja);
+  text-transform: uppercase;
+  margin-bottom: 14px;
+}
+
+.capsula h2 {
+font-size: clamp(2rem, 2.5vw, 2.8rem);
+    font-weight: 800;
+    line-height: 1.1;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    color: var(--color-oscuro);
+    margin-top: 8px;
+    margin-bottom: 8px;
+}
+
+.capsula h4 {
+  font-size: 1.25rem;
+  font-weight: 500;
+  line-height: 1.1;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  margin-top: 5px;
+  margin-bottom: 5vh; /* Separación vertical fluida antes del carrusel */
+  color: var(--color-oscuro);
+}
+
+.counter {
+  font-family: var(--font-main);
+  font-size: 14px;
+  letter-spacing: 0.12em;
+  color: var(--color-oscuro);
+  opacity: 0.6;
+  margin-bottom: 1vh;
+  height: 20px;
+}
+
+.carousel2-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  overflow: hidden;
+  width: 100%;
+  height: 60vh; /* Ocupa el 60% del alto de cualquier pantalla */
+}
+
+.carousel2-track {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2vw; /* El espacio entre tarjetas crece o se achica con el navegador */
+  width: 100%;
+  height: 100%;
+}
+
+.card2 {
+  flex-shrink: 0;
+  cursor: pointer;
+  position: relative;
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow: visible; /* IMPRESCINDIBLE: Permite que la imagen sobresalga */
+}
+
+.card2 img {
+  display: block;
+  object-fit: contain;
+  
+  /* 1. Posicionamiento absoluto en el centro */
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  
+  /* 2. Forzamos el ancho y alto al 100% de la tarjeta como base */
+  width: 100% !important;
+  height: 100% !important;
+  
+  /* 3. EL TRUCO CLAVE: Centramos (-50%, -50%) Y ADEMÁS multiplicamos el tamaño visual */
+  /* El número 2.2 significa que se va a ver un 220% más grande. Modificá este número para regular el tamaño */
+  transform: translate(-50%, -50%) scale(1.35); 
+  
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.card2.far-side {
+  width: 11vw; /* Valores reducidos para margen, como acordamos */
+  height: 20vw;
+  opacity: 0.25;
+}
+
+.card2.far-side img {
+transform: translate(-50%, -50%) scale(1.2) !important;
+}
+
+.card2.side {
+  width: 16vw; 
+  height: 25vw;
+  opacity: 0.55;
+}
+
+.card2.side img {
+transform: translate(-50%, -50%) scale(1.3) !important;
+}
+
+.card2.active {
+  width: 28vw; /* Grande para impacto visual */
+  height: 38vw; 
+  opacity: 1;
+  z-index: 10; /* Asegura que la card grande esté sobre las otras */
+}
+
+.card2-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(76, 21, 5, 0.8);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  opacity: 0;
+  transition: opacity 0.35s ease;
+  z-index: 2;
+}
+
+.card2.active:hover .card2-overlay {
+  opacity: 1;
+}
+
+.card2.active:hover img {
+  opacity: 0.35;
+}
+
+.overlay-text {
+  font-family: var(--font-main);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--color-crema);
+}
+
+.overlay-btn {
+  width: 42px;
+  height: 42px;
+  border: 1.5px solid var(--color-crema);
+  border-radius: 50%;
+  background: transparent;
+  color: var(--color-crema);
+  font-size: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.25s, color 0.25s;
+  line-height: 1;
+}
+
+.overlay-btn:hover {
+  background: var(--color-naranja);
+  border-color: var(--color-naranja);
+}
+
+.nav2 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 32px;
+  margin-top: 20px;
+}
+
+.nav2-arrow {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--color-oscuro);
+  opacity: 0.7;
+  font-size: 22px;
+  padding: 8px;
+  transition: opacity 0.2s, color 0.2s;
+  display: flex;
+  align-items: center;
+}
+
+.nav2-arrow:hover {
+  opacity: 1;
+  color: var(--color-naranja);
+}
+
+.nav2-arrow svg {
+  width: 28px;
+  height: 28px;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* --- 5. RESPALDO PARA CELULARES (Evita que queden diminutas en pantallas muy chicas) --- */
+@media (max-width: 1023px) {
+  .capsula {
+    overflow-x: hidden !important; 
+    padding: 60px 5% !important; /* Aprovechamos a optimizar el espacio vertical */
+  }
+
+  .carousel2-wrapper {
+    height: 45vh; 
+    touch-action: pan-y; 
+    overflow: visible !important; /* Rompe el recorte de las tarjetas laterales */
+  }
+  
+  .carousel2-track {
+    touch-action: none; 
+    overflow: visible !important; /* Asegura el pase libre de las imágenes */
+  }
+
+  .card2.active {
+    width: 65vw;  
+    height: 75vw;
+  }
+  
+  .card2.side {
+    width: 45vw;
+    height: 55vw;
+    opacity: 0.4; /* Bajamos un toque la opacidad para que la del medio explote más */
+  }
+  
+  .card2.far-side {
+    display: none; 
+  }
+
+  .nav2 {
+    position: relative !important;
+    z-index: 100 !important; /* Un valor alto para ganarle a las tarjetas */
+    margin-top: 30px !important; /* Le damos un poquito más de distancia por comodidad */
+  }
+
+  /* Hacemos que los botones tengan un área de contacto limpia */
+  .nav2-arrow {
+    position: relative !important;
+    z-index: 101 !important;
+    cursor: pointer;
+  }
+}
+
+
+/* ==========================================================================
+   SECCION FORMULARIO CONTACTO
+   ========================================================================== */
+
+
+/* Estilos Base de la Sección */
+.contact-section {
+  background-image: url('imagenes/grid4.png');
+  
+  /* Configuraciones para la trama: */
+  background-repeat: repeat;    /* Hace que la textura se repita en mosaico infinitamente */
+  background-size: auto;        /* Mantiene el tamaño real de los píxeles de la trama */
+  background-attachment: fixed;
+  background-position: 0 0;
+  /* FUSIONA LA TRAMA CON TU COLOR: 
+     'multiply' la oscurece e integra, 'overlay' la suaviza. Proba cuál te queda mejor */
+  background-blend-mode: multiply;
+  padding: 60px 20px;
+  display: flex;
+  justify-content: center;
+}
+
+.contact-container {
+  width: 100%;
+  max-width: 1000px;
+  display: grid;
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 768px) {
+  .contact-container {
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+  }
+}
+
+/* Columna Izquierda */
+.contact-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 16px;
+  border: 1px solid var(--color-naranja) ;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  margin-bottom: 24px;
+}
+
+.contact-info h2 {
+  margin: 0 0 12px 0;
+    font-size: clamp(2rem, 2.5vw, 2.8rem);
+    font-weight: 800;
+    line-height: 1.1;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    color: var(--color-oscuro);
+    margin-top: 5px;
+}
+
+.contact-subtitle {
+  color: var(--color-oscuro);
+  margin-bottom: 32px;
+  line-height: 1.5;
+}
+
+.contact-cards-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.contact-card {
+  display: flex;
+  padding: 16px;
+  border: 1px solid transparent;
+  border-radius: 12px;
+  text-decoration: none;
+  color: inherit;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.contact-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px color var(--color-oscuro);
+}
+
+.card-icon {
+  width: 24px;
+  height: 24px;
+  margin-right: 12px;
+  align-self: center; /* Centra el contenedor del icono con la altura del texto, pero su base respetará la línea */
+  color: var(--color-naranja);
+}
+
+.card-icon svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.card-content {
+  display: flex;
+  flex-direction: column;
+  width: 100%; /* Ocupa todo el ancho disponible */
+}
+
+.card-bottom-row {
+  display: flex;
+  align-items: baseline; /* Apoya icono, texto y flecha en la misma línea */
+  margin-top: 6px; /* Despega la fila inferior del título */
+}
+
+.card-title {
+  font-size: 0.9rem;
+  color: var(--color-oscuro);
+  margin-bottom: 4px;
+}
+
+.card-detail {
+  font-weight: 500;
+  line-height: 1;
+}
+
+.card-arrow {
+  width: 20px;
+  height: 20px;
+  margin-left: 12px;
+  color: var(--color-oscuro);
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.card-arrow svg {
+  width: 100%;
+  height: 100%;
+  stroke-width: 1.2;
+}
+
+.contact-card:hover .card-arrow {
+  color: var(--color-naranja);
+  transform: translate(2px, -2px);
+}
+
+/* Columna Derecha (Formulario) */
+.contact-form-container {
+  border: 1px solid color none;
+  border-radius: 16px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  height: 100%;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column-reverse; /* Permite efectos de foco limpios si decides estilar las etiquetas */
+  gap: 6px;
+  position: relative;
+}
+
+.form-group label {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--color-oscuro);
+}
+
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  padding: 14px;
+  border: 1px solid var(--color-oscuro);
+  font-family: inherit;
+  font-size: 1rem;
+  box-sizing: border-box;
+  background-color: transparent;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: var(--color-naranja);
+}
+
+
+
+/* METODOLOGIA PAGINA DETALLE */
+
+/* Estilos Generales de la Sección */
+.metodologia-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center; /* Alinea los bloques abajo para favorecer el efecto fichero */
+  background-color: var(--color-oscuro); /* Color de fondo de tu imagen */
+  background-image: url('imagenes/grid3.png');
+  
+  /* Configuraciones para la trama: */
+  background-repeat: repeat;    /* Hace que la textura se repita en mosaico infinitamente */
+  background-size: auto;        /* Mantiene el tamaño real de los píxeles de la trama */
+  background-attachment: fixed;
+  background-position: 0 0;
+  /* FUSIONA LA TRAMA CON TU COLOR: 
+     'multiply' la oscurece e integra, 'overlay' la suaviza. Proba cuál te queda mejor */
+  background-blend-mode: multiply;
+
+  padding: 80px 10%;
+  gap: 80px;
+  min-height: 80vh;
+}
+
+/* Columna Izquierda */
+.metodologia-left {
+  flex: 1;
+  max-width: 400px;
+}
+
+.metodologia-left h2 {
+  font-size: clamp(2rem, 2.5vw, 2.8rem);
+    font-weight: 800;
+    line-height: 1.1;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    color: var(--color-crema);
+    margin-top: 5px;
+    margin-bottom: 30px;
+}
+
+.metodologia-left .bajada {
+  font-size: 1rem;
+  color: var(--color-crema);
+  line-height: 1.6;
+}
+
+/* Columna Derecha (Contenedor Fichero) */
+.metodologia-right {
+  flex: 1.2;
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* Clave: hace que los elementos crezcan hacia arriba */
+}
+
+/* Tarjetas individuales */
+.fichero-card {
+  border-top: 1px solid var(--color-crema); /* Línea divisoria */
+  cursor: pointer;
+  transition: opacity 0.4s ease, padding 0.4s ease;
+  padding: 20px 0;
+}
+
+/* Última tarjeta lleva línea abajo para cerrar el contenedor */
+.fichero-card:last-child {
+  border-bottom: 1px solid var(--color-crema);
+  transition: border-bottom-color 0.4s ease, opacity 0.5s ease, padding 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* 2. Cuando la última tarjeta esté activa, transformamos su borde inferior a un color con 30% de opacidad */
+.fichero-card.active:last-child {
+  border-bottom-color: color-mix(in srgb, #f7e8d7 30%, transparent);
+}
+
+.fichero-card h3 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    line-height: 1.1;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+  color: var(--color-crema);
+  margin: 0;
+  letter-spacing: 1.5px;
+  transition: opacity 0.5s ease, padding 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+transition: transform 0.45s cubic-bezier(0.25, 1, 0.5, 1);  
+transform-origin: left center;    /* El origen se define también en el estado base */
+  transform: scale(1);             /* Definimos la escala base (opcional, pero buena práctica) */
+  padding: 10px 0;
+}
+
+/* Agrega este bloque para el efecto hover */
+.fichero-card:hover h3 {
+transform: scale(1.08);
+color: var(--color-naranja);
+}
+
+/* Cuerpo oculto por defecto */
+.fichero-body {
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+transition: max-height 0.5s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.4s ease;
+}
+
+.fichero-body p {
+  margin: 0 0 0 0;
+  color:var(--color-crema);
+  line-height: 1.6;
+  font-size: 0.95rem;
+}
+
+/* --- ESTADOS INTERACTIVOS (JS) --- */
+
+/* Cuando una tarjeta está activa/abierta */
+.fichero-card.active {
+  padding: 30px 0; /* Crece un poco el espacio interno al abrirse */
+}
+
+.fichero-card.active .fichero-body {
+  max-height: 100px; /* Altura máxima estimada para el párrafo */
+  opacity: 1;
+}
+
+/* Efecto de opacidad: Cuando el contenedor tiene una tarjeta abierta, 
+   baja la opacidad de las que NO están activas */
+.metodologia-right.has-active .fichero-card:not(.active) {
+  opacity: 0.3;
+}
+
+/* FUERZA OPACIDAD 1 EN EL HOVER CUANDO ESTÁ DESACTIVADO */
+.metodologia-right.has-active .fichero-card:not(.active):hover {
+    opacity: 1 !important;
+}
+
+/* Responsive para Mobile */
+@media (max-width: 768px) {
+  .metodologia-container {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 40px;
+    padding: 40px 5%;
+  }
+  .metodologia-right {
+    width: 100%;
+    min-height: auto;
+  }
+}
+
+/* SECCION FRASE PAGINA DETALLE */
+/* Contenedor principal de la sección */
+.frase-section {
+  background-color: var(--color-crema); /* Mismo fondo gris */
+    background-image: url('imagenes/grid3.png');
+  
+  /* Configuraciones para la trama: */
+  background-repeat: repeat;    /* Hace que la textura se repita en mosaico infinitamente */
+  background-size: auto;        /* Mantiene el tamaño real de los píxeles de la trama */
+  background-attachment: fixed;
+  background-position: 0 0;
+  /* FUSIONA LA TRAMA CON TU COLOR: 
+     'multiply' la oscurece e integra, 'overlay' la suaviza. Proba cuál te queda mejor */
+  background-blend-mode: multiply;
+
+padding-top: 140px;       /* Buen aire vertical para destacar la tipografía */
+padding-bottom: 200px;
+padding-right: 5%; 
+padding-left: 3%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 40vh;         /* Altura de sección equilibrada */
+  overflow: hidden; /* Evita cualquier desborde horizontal durante el movimiento */
+}
+
+/* Caja que encierra las dos líneas */
+.frase-container {
+  width: 100%;
+  max-width: 900px;        /* Límite para que no se estire infinito en monitores enormes */
+  display: flex;
+  flex-direction: column;
+  gap: 15px;                /* Controla la distancia vertical entre ambas líneas */
+}
+
+/* Estilo base para ambos textos */
+.frase-container p {
+  color: var(--color-naranja);           /* Color marrón oscuro */
+  font-size: clamp(1.8rem, 4vw, 7rem); /* Tipografía fluida y matemática */
+  font-weight: 600;
+  font-style: italic;
+  letter-spacing: 0.03em;   /* Un tracking sutil que estira las mayúsculas */
+  margin: 0;
+  line-height: 1.1;
+}
+
+/* Primera línea alineada a la izquierda */
+.frase-linea-1 {
+  align-self: flex-start;
+  opacity: 0;
+  transform: translateX(-30px);
+  
+  /* CAMBIO: De 2.0s pasamos a 2.8s para ralentizar al máximo */
+  transition: opacity 2.8s cubic-bezier(0.25, 1, 0.5, 1),
+              transform 2.8s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+/* Segunda línea empujada hacia la derecha (Efecto escalonado) */
+.frase-linea-2 {
+  align-self: flex-end;
+  text-align: right;
+  opacity: 0;
+  transform: translateX(30px);
+  
+  /* CAMBIO: De 2.0s pasamos a 2.8s */
+  transition: opacity 2.8s cubic-bezier(0.25, 1, 0.5, 1),
+              transform 2.8s cubic-bezier(0.25, 1, 0.5, 1);
+              
+  /* CAMBIO: Aumentado el retraso a 0.5s para un contraste asimétrico bien lento */
+  transition-delay: 0.5s;
+}
+
+/* Estado activo: ambas convergen suavemente en su posición original (0) */
+.frase-section.reveal-active .frase-linea-1,
+.frase-section.reveal-active .frase-linea-2 {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* --- ADAPTACIÓN DE SECCIÓN FRASE (MENOS DE 480PX) --- */
+@media (max-width: 479px) {
+  /* 1. Ajustamos los paddings verticales de la sección */
+  .frase-section {
+    padding-top: 60px !important;    /* Reducimos el aire superior para móviles */
+    padding-bottom: 80px !important; /* Reducimos el aire inferior */
+    padding-right: 5% !important;   /* Mantenemos un margen lateral sutil */
+    padding-left: 5% !important;
+    min-height: auto !important;     /* Dejamos que la altura se adapte al contenido */
+  }
+
+  /* 2. Unificamos la alineación de la caja contenedora */
+.frase-container {
+    gap: 0 !important;              /* Quitamos la separación de la grilla flex */
+    align-items: center !important;
+  }
+
+  /* 3. Centramos y desfasamos los textos individuales */
+.frase-container p {
+    text-align: center !important;
+    width: auto !important;
+    display: inline-block !important;
+    max-width: 90% !important;
+    
+    /* Forzamos a que el margen superior e inferior sea cero absoluto */
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+    
+    /* El valor de line-height controla qué tan pegadas se ven las líneas entre sí */
+    line-height: 1.1 !important;    /* Ajustá este número si querés más o menos aire */
+  }
+
+/* ALINEACIÓN SIMÉTRICA: Ambas líneas centradas en pantallas chicas */
+  .frase-linea-1 {
+    align-self: center !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+  }
+
+  .frase-linea-2 {
+    align-self: center !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+  }
+
+  /* OCULTAR PALABRA ESPECÍFICA */
+  .palabra-ocultable {
+    display: none !important;
+  }
+}
+
+
+
+/* SECCION ESPECIFICACIONES TECNICAS PAGINA DETALLE */
+
+.tecnica-container {
+  background-color: var(--color-oscuro);
+    background-image: url('imagenes/grid3.png');
+  
+  /* Configuraciones para la trama: */
+  background-repeat: repeat;    /* Hace que la textura se repita en mosaico infinitamente */
+  background-size: auto;        /* Mantiene el tamaño real de los píxeles de la trama */
+  background-attachment: fixed;
+  background-position: 0 0;
+  /* FUSIONA LA TRAMA CON TU COLOR: 
+     'multiply' la oscurece e integra, 'overlay' la suaviza. Proba cuál te queda mejor */
+  background-blend-mode: multiply;
+
+  color: var(--color-crema);
+  padding: 8% 40px 60px 8%;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+
+
+.tecnica-container h2 {
+  font-size: clamp(2rem, 2.5vw, 2.8rem);
+    font-weight: 800;
+    line-height: 1.1;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    color: var(--color-oscuro);
+    margin-top: 5px;
+}
+
+.tecnica-container h2.h2-esp-margen {
+  margin-bottom: 5vh;
+}
+
+
+.tecnica-container h3{
+    font-size: 1.5rem;
+    font-weight: 600;
+    line-height: 1.1;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+margin:0;
+    color: var(--color-oscuro);
+}
+
+
+/* Flexbox para las columnas de selección */
+.tecnica-columns {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  position: relative; /* Clave para posicionar la línea adentro */
+}
+
+.tecnica-columns::after {
+  content: "";
+  position: absolute;
+  top: 6px;          /* Ajustá esto para darle un margen superior a la línea si querés */
+  bottom: 6px;       /* Ajustá esto para darle un margen inferior a la línea */
+  left: 50%;          /* La ubica exactamente en el medio de las dos columnas */
+  transform: translateX(-50%);
+  width: 1px;         /* El grosor de la línea */
+  background-color: var(--color-oscuro); /* Tu color original */
+  opacity: 0.8;       /* Opcional: por si querés suavizar la intensidad de la línea */
+  pointer-events: none; /* Hace que el mouse ignore la línea y no interrumpa el hover */
+}
+
+.tecnica-col {
+  flex: 1;
+  text-align: center;
+  padding: 10px 20px;
+  cursor: pointer;
+  transition: opacity 0.3s ease;
+  user-select: none;
+  transition: opacity 0.3s ease, transform 0.3s ease, color 0.3s ease; 
+  user-select: none;
+}
+
+.tecnica-col-header {
+display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  font-weight: 600;
+  font-size: 1.1rem;
+  letter-spacing: 1px;
+  
+  /* Agregamos los márgenes del h3 acá para no perder distancias con el subtítulo */
+  margin-top: 5px;
+  margin-bottom: 15px;
+}
+
+.tecnica-icon {
+  font-size: 1.2rem;
+  font-weight: bold;
+  line-height: 1; /* Elimina el aire vertical extra que suelen tener los caracteres como el '+' */
+  
+  /* Ajuste óptico milimétrico. Si todavía lo ves un poco abajo, subilo a -2px */
+  transform: translateY(-1px);
+}
+
+.tecnica-col-subtitle {
+  margin: 0;
+  font-size: 0.9rem;
+  opacity: 0.9;
+}
+
+/* Reducción de opacidad de las demás columnas */
+.tecnica-columns.has-active .tecnica-col:not(.active) {
+  opacity: 0.3;
+}
+
+/* NUEVO: Asegura que la columna activa se mantenga al 100% desde el inicio */
+.tecnica-col.active {
+  opacity: 1;
+}
+
+/* 1. Forzamos la opacidad total usando la misma cadena de selectores para ganar peso */
+.tecnica-columns.has-active .tecnica-col:not(.active):hover,
+.tecnica-col:not(.active):hover {
+  opacity: 1 !important;  /* El !important asegura que ninguna otra regla lo opaque */
+  transform: scale(1.03);
+}
+
+/* 2. Cambio de color al naranja brillante para todos los textos en hover */
+.tecnica-columns.has-active .tecnica-col:not(.active):hover h3,
+.tecnica-columns.has-active .tecnica-col:not(.active):hover .tecnica-col-subtitle,
+.tecnica-columns.has-active .tecnica-col:not(.active):hover .tecnica-icon,
+.tecnica-col:not(.active):hover h3,
+.tecnica-col:not(.active):hover .tecnica-col-subtitle,
+.tecnica-col:not(.active):hover .tecnica-icon {
+  color: #ff510d;
+}
+
+/* 3. Cambio de tamaño del ícono en hover */
+.tecnica-columns.has-active .tecnica-col:not(.active):hover .tecnica-icon,
+.tecnica-col:not(.active):hover .tecnica-icon {
+  font-size: 1.5rem;
+}
+
+/* Control de transiciones de los paneles de texto */
+.tecnica-panels {
+  width: 100%;
+}
+
+.tecnica-panel {
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  
+  /* Agregamos un leve desplazamiento hacia arriba para que flote al abrir */
+  transform: translateY(-10px); 
+  
+  /* Curva cubic-bezier premium: simula aceleración física real */
+  transition: max-height 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+              opacity 0.4s ease,
+              transform 0.4s ease;
+}
+
+/* Clase activa para abrir el panel */
+.tecnica-panel.active {
+  /* Bajamos de 2000px a 1100px (suficiente para la imagen) para eliminar el delay al cerrar */
+  max-height: 1100px; 
+  opacity: 1;
+  transform: translateY(0); /* Vuelve a su posición original */
+    margin-top: 30px;
+  overflow: visible;
+
+  /* Al abrir, usamos una curva que desacelera suavemente al final (out-quintic) */
+  transition: max-height 0.6s cubic-bezier(0.25, 1, 0.5, 1),
+              opacity 0.5s ease,
+              transform 0.5s ease;
+}
+
+.panel-inner-content {
+  padding: 30px 10px;
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+
+
+/* SECCION herramientas PAGINA DETALLE */
+/* 1. Tus títulos se quedan dentro del bloque centrado estándar */
+.tecnica-container {
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 40px 20px 20px 20px;
+  box-sizing: border-box;
+}
+
+/* REEMPLAZÁ la regla de .tecnica-container de la línea ~560 por estas dos: */
+
+#especificaciones {
+  width: 100%;
+  background-color: var(--color-crema);
+  background-image: url('imagenes/grid3.png');
+  background-repeat: repeat;
+  background-size: auto;
+  background-attachment: fixed;
+  background-position: 0 0;
+  background-blend-mode: multiply;
+  padding: 10vh 0 60px 0; /* Pasamos el padding vertical a la sección */
+}
+
+.tecnica-container {
+  color: var(--color-oscuro);
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 40px; /* Dejamos solo los paddings laterales */
+  box-sizing: border-box;
+  background: transparent !important; /* Nos aseguramos que sea transparente */
+}
+
+/* Corrección de fondo infinito con trama para Herramientas */
+#herramientas-seccion {
+  width: 100%;
+  background-color: var(--color-crema);
+  background-image: url('imagenes/grid3.png');
+  background-repeat: repeat;
+  background-size: auto;
+  background-attachment: fixed;
+  background-position: 0 0;
+  background-blend-mode: multiply;
+  box-sizing: border-box;
+  margin-top: 0;
+  padding-top: 8vh;
+}
+
+/* El contenedor que obliga a la imagen a ir de lado a lado ya no necesita fondo propio */
+.interactive-showcase-fullwidth {
+  width: 100%;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  background-color: transparent; /* Se vuelve transparente para ver el fondo de la sección */
+  padding: 40px 0 5vh 0; 
+  box-sizing: border-box;
+}
+
+/* 3. El marco relativo para que los botones (+) no se muevan de su lugar */
+.interactive-showcase__wrapper {
+  position: relative;
+  width: 100%;
+  max-width: 100%;
+  display: inline-block;
+}
+
+/* 4. La imagen estirada manteniendo su proporción estricta */
+.interactive-showcase__img {
+  display: block;
+  width: 100%;         /* Va de lado a lado */
+  height: auto;        /* Clave para que los botones (+) no se desalinien */
+  max-height: 75vh;    /* Límite de alto para pantallas muy grandes */
+  object-fit: contain; /* Si toca el techo del max-height, se encaja sin deformar */
+}
+
+/* --- ESTILOS DEL HOTSPOT (+) --- */
+.hotspot {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  z-index: 10;
+}
+
+.hotspot__button {
+  width: 28px;
+  height: 28px;
+  background-color: var(--color-naranja);
+  color: var(--color-crema);
+  font-size: 1.1rem;
+  font-weight: 600;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  user-select: none;
+  transition: transform 0.2s ease;
+
+  /* --- CORRECCIÓN DE CENTRADO --- */
+  line-height: 0;          /* Colapsa el espacio extra que la tipografía reserva abajo para otras letras */
+  padding-bottom: 3px;     /* Empuja el '+' sutilmente hacia arriba para compensar el peso visual */
+  box-sizing: border-box;
+}
+
+.hotspot:hover .hotspot__button {
+  transform: scale(1.05);
+}
+
+/* --- LOGICA DE DESPLIEGUE (HOVER) --- */
+.hotspot__details {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+  pointer-events: none; /* Evita parpadeos raros al pasar el mouse por encima */
+}
+
+.hotspot__line {
+  height: 2px;
+  background-color: var(--color-naranja);
+  width: 0;
+  transition: width 0.35s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.hotspot__text {
+  color: var(--color-crema);
+  font-size: 1.05rem;
+  font-weight: 500;
+  white-space: nowrap;
+  opacity: 0;
+  transition: opacity 0.25s ease;
+  
+  /* --- AGREGADO PARA EL FONDO --- */
+  background-color: var(--color-naranja);             /* Fondo blanco para máxima lectura */
+  padding: 4px 10px;                     /* Margen interno para que no sature el texto */
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1); /* Sombra suave para separarlo de la imagen */
+}
+
+/* --- MODIFIER: LINEA HACIA LA IZQUIERDA --- */
+.hotspot--left .hotspot__details {
+  right: 100%; /* Se alinea justo antes del inicio izquierdo del botón */
+}
+
+.hotspot--left .hotspot__text {
+  margin-right: 12px; /* Separación entre el texto y la línea */
+  transform: translateX(10px);
+  transition: opacity 0.25s ease, transform 0.35s ease;
+}
+
+.hotspot--left:hover .hotspot__line {
+  width: 90px; /* Largo de la línea */
+}
+
+.hotspot--left:hover .hotspot__text {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* --- MODIFIER: LINEA HACIA LA DERECHA --- */
+.hotspot--right .hotspot__details {
+  left: 100%; /* Se alinea justo después del final derecho del botón */
+}
+
+.hotspot--right .hotspot__text {
+  margin-left: 12px;
+  transform: translateX(-10px);
+  transition: opacity 0.25s ease, transform 0.35s ease;
+}
+
+.hotspot--right:hover .hotspot__line {
+  width: 90px;
+}
+
+.hotspot--right:hover .hotspot__text {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* --- ADAPTACIÓN DE HOTSPOTS PARA MENOS DE 480PX --- */
+@media (max-width: 479px) {
+    /* 1. Cambio de imagen horizontal a vertical de relleno */
+    .interactive-showcase__img {
+        content: url('imagenes/herramientasmobile.png') !important; /* Tu imagen vertical aquí */
+        
+        /* LA CLAVE: Forzamos a que entre COMPLETA y nunca se mutile */
+        width: 100% !important;
+        height: auto !important;
+        max-height: 75vh !important; /* Límite para que no se vaya de tema en pantallas altas */
+        object-fit: contain !important; 
+        
+        background-color: transparent !important; /* Asegura que se vea la trama de fondo en las zonas vacías */
+    }
+
+    /* 2. Achicamos los botones (+) */
+    .hotspot__button {
+        width: 22px !important;
+        height: 22px !important;
+        font-size: 0.9rem !important;
+        padding-bottom: 2px !important;
+    }
+
+    /* 3. Desactivamos por completo los efectos de hover de desktop */
+    .hotspot:hover .hotspot__button,
+    .hotspot:hover .hotspot__line {
+        transform: none !important;
+        width: 0 !important;
+    }
+    .hotspot:hover .hotspot__text {
+        opacity: 0 !important;
+        transform: none !important;
+    }
+
+    /* 4. Eliminamos físicamente la línea conectora */
+    .hotspot__line {
+        display: none !important;
+    }
+
+    /* 5. Posicionamos las etiquetas pegadas al botón */
+    .hotspot__text {
+        font-size: 0.85rem !important;
+        padding: 3px 8px !important;
+        margin-left: 6px !important;
+        margin-right: 6px !important;
+        transition: opacity 0.2s ease !important;
+    }
+
+    .hotspot--left .hotspot__text {
+        transform: translateX(0) !important;
+    }
+    .hotspot--right .hotspot__text {
+        transform: translateX(0) !important;
+    }
+
+    /* 6. LOGICA DE APERTURA POR CLICK (Se activa mediante JS) */
+    .hotspot.active .hotspot__text {
+        opacity: 1 !important;
+        pointer-events: auto !important;
+    }
+
+/* ANULAMOS EL HOVER NARANJA EN CELULARES */
+  .tecnica-columns.has-active .tecnica-col:not(.active):hover h3,
+  .tecnica-columns.has-active .tecnica-col:not(.active):hover .tecnica-col-subtitle,
+  .tecnica-columns.has-active .tecnica-col:not(.active):hover .tecnica-icon,
+  .tecnica-col:not(.active):hover h3,
+  .tecnica-col:not(.active):hover .tecnica-col-subtitle,
+  .tecnica-col:not(.active):hover .tecnica-icon {
+    /* Forzás a que herede el color normal del texto y no se pinte de naranja al tocar la pantalla */
+    color: var(--color-oscuro) !important; 
+  }
+
+  .tecnica-container h2 {
+margin-left: 20px;
+}
+
+/* 7. RECALIBRACIÓN MILIMÉTRICA DE HOTSPOTS PARA LA IMAGEN VERTICAL MOBILE */
+
+    /* 1. Martillo de carpintero */
+    .hotspot:nth-of-type(1) {
+        top: 45% !important;   /* Cambiá estos % para moverlo arriba/abajo */
+        left: 21% !important;  /* Cambiá estos % para moverlo a los lados */
+    }
+
+    /* 2. Prensas sargento */
+    .hotspot:nth-of-type(2) {
+        top: 87% !important;
+        left: 74% !important;
+    }
+
+    /* 3. Destornilladores */
+    .hotspot:nth-of-type(3) {
+        top: 20% !important;
+        left: 38% !important;
+    }
+
+    /* 4. Lijas */
+    .hotspot:nth-of-type(4) {
+        top: 50% !important;
+        left: 75% !important;
+    }
+
+    /* 5. Lijadora orbital */
+    .hotspot:nth-of-type(5) {
+        top: 80% !important;
+        left: 50% !important;
+    }
+
+    /* 6. Formones */
+    .hotspot:nth-of-type(6) {
+        top: 37% !important;
+        left: 40% !important;
+    }
+
+    /* 7. Garlopa manual */
+    .hotspot:nth-of-type(7) {
+        top: 57% !important;
+        left: 45% !important;
+    }
+
+    /* 8. Gubias */
+    .hotspot:nth-of-type(8) {
+        top: 37% !important;
+        left: 60% !important;
+    }
+}
+
+
+/* SECCION materiales PAGINA DETALLE */
+/* ==========================================================================
+   MÓDULO INTERACTIVO DE MATERIALES (EDICIÓN DEFINITIVA - SIN DESFASES)
+   ========================================================================== */
+
+/* Forzamos al panel de tu acordeón a liberar el espacio para que la mesa pueda ser full-width */
+#materiales .panel-inner-content {
+    padding: 3rem 0 0 0 !important; /* Quitamos paddings laterales del padre */
+    width: 100% !important;
+    max-width: 100% !important;
+}
+
+.interactive-materials-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+    width: 100%;
+    margin: 0 auto;
+    overflow: hidden; /* Evita scrolls fantasma en la pantalla */
+}
+
+/* Fila de Materiales Arrastrables */
+.materials-row {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+    width: 100%;
+    max-width: 1100px; /* Las cápsulas mantienen su contención elegante en el centro */
+    padding: 0 40px;
+    flex-wrap: wrap;
+    box-sizing: border-box;
+}
+
+.material-slot {
+    width: 180px;
+    height: 180px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.draggable-material {
+    width: 100% !important;
+    height: 100% !important;
+    max-width: 180px !important;
+    max-height: 180px !important;
+    object-fit: contain !important;
+    cursor: grab;
+    touch-action: none;
+    z-index: 20;
+    transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+    -webkit-user-drag: none;
+}
+
+.draggable-material:hover {
+    transform: translateY(-10px) scale(1.02);
+}
+
+.draggable-material.dragging {
+    cursor: grabbing;
+    z-index: 99999;
+    transform: scale(1.1);
+    transition: none !important;
+}
+
+/* Fila de la Mesa - Ocupa el 100% nativo sin trucos de márgenes negativos ni transformadas rotas */
+.workspace-row {
+    width: 100% !important;
+    display: flex;
+    justify-content: center;
+    position: relative;
+}
+
+.drop-zone-container {
+    position: relative;
+    width: 100%;
+    max-width: 100% !important; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.workspace-table {
+    width: 100% !important;
+    height: 240px !important; /* Forzamos un alto fijo y chato */
+    max-width: 100% !important; 
+    display: block;
+    object-fit: cover !important; /* RECORTE INTELIGENTE: Mantiene el ancho total pero recorta el alto sin deformar la imagen */
+    object-position: center !important; /* Centra el recorte para que no se pierda el eje de la mesa */
+    pointer-events: none;
+}
+
+/* Material posicionado en mesa */
+.placed-material-holder {
+    position: absolute;
+    width: 180px;
+    height: 180px;
+    pointer-events: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.5);
+    left: 50%;
+    top: 50%; /* Centrado vertical exacto */
+    z-index: 5;
+}
+
+.placed-material-holder img {
+    width: 100% !important;
+    height: 100% !important;
+    max-width: 180px !important;
+    max-height: 180px !important;
+    object-fit: contain !important;
+}
+
+/* Estados Secuencia Animaciones */
+.placed-material-holder.pop-in {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1.2);
+    transition: transform 0.3s ease-out, opacity 0.3s ease-out;
+}
+
+.placed-material-holder.slide-left {
+    opacity: 1;
+    left: 35% !important; /* Cambiado de 25% a 35% para acercarlo a las tarjetas */
+    transform: translate(-50%, -50%) scale(1);
+    transition: left 0.5s cubic-bezier(0.25, 1, 0.5, 1), transform 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.placed-material-holder.fade-out {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.7);
+    transition: opacity 0.3s ease-in, transform 0.3s ease-in;
+}
+
+/* --- Texto Instructivo Inicial sobre la mesa --- */
+.workspace-instruction {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 1.1rem;
+    font-weight: 400;
+    letter-spacing: 0.03em;
+    /* text-transform: uppercase; */
+    color: var(--color-crema);
+    pointer-events: none; /* Crucial para que no interfiera con el puntero al soltar el objeto */
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    z-index: 4;
+}
+
+/* Clase de salida para ocultarlo con suavidad */
+.workspace-instruction.hidden {
+    opacity: 0;
+    transform: translate(-50%, -40%) scale(0.95);
+}
+
+/* Tarjetas Técnicas */
+.spec-cards-grid {
+    position: absolute;
+    right: 18% !important;
+    top: 50%;
+    transform: translateY(-50%) translateY(15px);
+    width: 32%;
+    max-width: 440px;
+    height: 85%;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    gap: 0.5rem;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.4s cubic-bezier(0.25, 1, 0.5, 1), transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+    z-index: 6;
+    
+    /* CLAVE 1: Fuerza a que las dos tarjetas de la misma fila midan exactamente lo mismo de alto */
+    align-items: stretch; 
+}
+
+.spec-cards-grid.visible {
+    opacity: 1;
+    transform: translateY(-50%); /* Se posiciona centrado al activarse */
+}
+
+.spec-card {
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    
+    /* CLAVE 2: Alinea el contenido al inicio (arriba), haciendo que los títulos queden siempre perfectos a la misma altura horizontal */
+    justify-content: flex-start; 
+    
+    box-sizing: border-box;
+}
+
+.card-title2 {
+    display: inline-block;
+    width: max-content; /* CLAVE: Obliga al bloque a medir únicamente lo que mide el texto escrito */
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    background-color: var(--color-naranja);
+    color: var(--color-crema);
+    
+    /* Aire perfectamente equilibrado de etiqueta */
+    padding: 1px 4px; 
+    
+    margin-bottom: 0.35rem;
+    box-sizing: border-box;
+}
+
+.card-value {
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: var(--color-crema);
+    line-height: 1.2;
+}
+
+
+/* SECCION acabados PAGINA DETALLE */
+/* SECCIÓN INTERACTIVA ACABADOS (image_9683b5.png + image_96a17d.png) */
+.acabados-showcase {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 80px;
+  width: 100%;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.acabados-image-container {
+  flex: 1;
+  max-width: 450px;
+  display: flex;
+  justify-content: center;
+}
+
+.acabados-img {
+  width: 100%;
+  max-height: 50vh;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+}
+
+.acabados-list {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 400px;
+}
+
+.acabados-btn {
+  background: none;
+  border: none;
+  color: var(--color-oscuro);
+  font-size: 1.2rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  cursor: pointer;
+  padding: 22px 0;
+  text-align: left;
+  width: 100%;
+  user-select: none;
+  outline: none;
+  border-bottom: 1px solid var(--color-oscuro); 
+  transition: opacity 0.3s ease;
+
+  /* --- CAMBIO AQUÍ: Todas arrancan apagadas desde el principio --- */
+  opacity: 0.3; 
+}
+
+/* La que tiene la clase 'active' (que en tu HTML es la primera) o la que recibe hover, se iluminan al 100% */
+.acabados-btn:hover,
+.acabados-btn.active {
+  opacity: 1;
+}
+
+/* Subtítulo para la nueva sección independiente de Herramientas */
+.herramientas-intro-subtitle {
+  margin-top: -60px; /* Compensa el margen inferior del h2 */
+  margin-bottom: 20px;
+  font-size: 1.1rem;
+  opacity: 0.9;
+}
+
+/* Ajuste opcional para reducir el espaciado interno si se separan las secciones */
+#herramientas-seccion .panel-inner-content {
+  padding-top: 10px; 
+}
+
+/* --- ADAPTACIÓN DE COMPONENTES ESENCIALES MATERIALES (MENOS DE 480PX) --- */
+@media (max-width: 479px) {
+  /* 1. ESTRUCTURA DEL ACORDEÓN VERTICAL (Mantiene tu orden deseado) */
+  .tecnica-container {
+    display: flex !important;
+    flex-direction: column !important;
+    padding-left: 0 !important;  /* Eliminamos el padding lateral para que la mesa llegue al borde */
+    padding-right: 0 !important; /* Eliminamos el padding lateral para que la mesa llegue al borde */
+  }
+
+  .tecnica-columns {
+    display: contents !important;
+  }
+
+  .tecnica-panels {
+    display: contents !important;
+  }
+
+  /* PROTEGEMOS LOS TÍTULOS Y BOTONES (Les devolvemos el margen que le sacamos al padre) */
+  .h2-esp-margen,
+  .tecnica-col {
+    width: calc(100% - 40px) !important; /* Compensa el espacio de borde a borde */
+    margin-left: 20px !important;
+    margin-right: 20px !important;
+    box-sizing: border-box !important;
+  }
+
+  /* Posicionamiento de las Filas */
+  .tecnica-col[data-target="materiales"] {
+    order: 1 !important;
+    margin-bottom: 10px !important;
+  }
+
+  #materiales.tecnica-panel {
+    order: 2 !important;
+    width: 100% !important;
+  }
+
+  .tecnica-col[data-target="acabados"] {
+    order: 3 !important;
+    margin-top: 15px !important;
+    margin-bottom: 10px !important;
+  }
+
+  #acabados.tecnica-panel {
+    order: 4 !important;
+    width: 100% !important;
+  }
+
+.materials-row {
+        display: grid !important; /* LA CLAVE: Activa el modo grilla para anular el flexbox anterior */
+        grid-template-columns: repeat(2, 1fr) !important; /* 2 columnas */
+        grid-template-rows: repeat(2, 1fr) !important;    /* 2 filas */
+        gap: 15px !important; 
+        justify-items: center !important; /* Centra las cápsulas dentro de sus nuevas celdas */
+    }
+
+    /* Reducimos el tamaño de las celdas contenedoras */
+    .material-slot {
+        width: 100px !important;
+        height: 100px !important;
+    }
+
+    /* Forzamos a las imágenes a moldearse a ese nuevo tamaño compacto */
+    .draggable-material {
+        max-width: 100px !important;
+        max-height: 100px !important;
+    }
+
+  /* 2. ADAPTACIÓN DE LA MESA DE BORDE A BORDE REAL (100% NATIVO) */
+  #materiales .panel-inner-content {
+    padding: 0.5rem 0 0 0 !important; /* Cero paddings laterales */
+    width: 100% !important;
+  }
+
+  .interactive-materials-section {
+    width: 100% !important;
+    gap: 0.8rem !important;
+  }
+
+  .workspace-row {
+    display: block !important;
+    width: 100% !important; /* Va al 100% real de la pantalla sin encogerse */
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  .drop-zone-container {
+    display: block !important;
+    position: relative !important;
+    width: 100% !important;
+    height: 180px !important; /* Mantiene la altura deseada fija */
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  .workspace-table {
+    display: block !important;
+    width: 100% !important;  /* Fuerza el estiramiento horizontal completo */
+    height: 100% !important; /* Llena los 180px de alto */
+    object-fit: cover !important;
+    object-position: center !important;
+  }
+
+  /* TEXTO CLAVADO EN EL CENTRO DE LA MESA */
+  .workspace-instruction {
+    position: absolute !important;
+    top: 50% !important;
+    left: 50% !important;
+    transform: translate(-50%, -50%) !important;
+    width: 100% !important;
+    max-width: 90% !important;
+    text-align: center !important;
+    margin: 0 !important;
+    z-index: 10 !important;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
+  }
+
+
+  /* 1. CLAVAMOS EL MATERIAL EN EL CENTRO EXACTO DE LA MESA */
+  .placed-material-holder {
+    position: absolute !important;
+    top: 50% !important;   /* Mitad exacta de los 180px de la mesa */
+    left: 50% !important;  /* Centrado horizontal inicial */
+    transform: translate(-50%, -50%) scale(0.5) !important;
+    width: 95px !important;
+    height: 95px !important;
+    z-index: 5 !important;
+    transition: all 0.4s ease-out !important;
+  }
+
+  /* Animación Pop-in inicial (mantiene el centro de la mesa) */
+  .placed-material-holder.pop-in {
+    opacity: 1 !important;
+    transform: translate(-50%, -50%) scale(1.1) !important;
+  }
+
+  /* Cuando se activa la secuencia con datos: se corre a la izquierda pero SE MANTIENE EN EL CENTRO VERTICAL (top: 50%) */
+  .placed-material-holder.slide-left {
+    opacity: 1 !important;
+    left: 22% !important;  /* Se mueve a la izquierda para dejarle espacio a las cards */
+    top: 50% !important;   /* Sigue rigurosamente en el centro vertical de la mesa */
+    transform: translate(-50%, -50%) scale(1) !important;
+  }
+
+  /* 2. ACOMODAMOS LAS CARDS AL LADO DEL MATERIAL (2 columnas x 2 filas) */
+  .spec-cards-grid {
+    position: absolute !important; /* Pasa a flotar sobre la mesa al lado del objeto */
+    display: grid !important;
+    grid-template-columns: repeat(2, 1fr) !important; /* 2 Columnas */
+    grid-template-rows: repeat(2, 1fr) !important;    /* 2 Filas */
+    gap: 4px !important; /* Espacio super compacto para que entre en la mesa */
+    
+    /* Ubicación: a la derecha del material dentro de los 180px de la mesa */
+    right: 10% !important;
+    top: 50% !important;
+    transform: translateY(-50%) scale(0.9) !important; /* Centrado vertical exacto en la mesa */
+    
+    width: 52% !important; /* Ocupa la mitad derecha de la mesa */
+    height: auto !important;
+    margin: 0 !important; /* Elimina el margen que las tiraba hacia abajo */
+    padding: 0 !important;
+    box-sizing: border-box !important;
+    z-index: 6 !important;
+    opacity: 0;
+    transition: opacity 0.4s ease, transform 0.4s ease !important;
+  }
+
+  /* Cuando el JS inyecta la clase visible, se muestran perfectamente en su lugar */
+  .spec-cards-grid.visible {
+    opacity: 1 !important;
+    transform: translateY(-50%) scale(1) !important;
+  }
+
+  /* Mini ajustes para que las tarjetas de texto entren en ese espacio compacto */
+  .spec-card {
+    padding: 4px 6px !important;
+    border-radius: 3px !important;
+  }
+
+  .card-title2 {
+    font-size: 0.58rem !important;
+    padding: 2px 3px 1px 3px !important;
+    margin-bottom: 1px !important;
+  }
+
+  .card-value {
+    font-size: 0.78rem !important;
+    line-height: 1.1 !important;
+    font-weight: 500;
+    margin-top: 5px;
+  }
+
+    .materials-row {
+        grid-template-columns: repeat(2, 1fr) !important;
+        grid-template-rows: repeat(2, 1fr) !important;
+        gap: 15px !important; 
+    }
+}
+
+@media (max-width: 479px) {
+
+  /* 3. ADAPTACIÓN PANEL ACABADOS (IMAGEN ARRIBA, BOTONES ABAJO) */
+  
+  /* Forzamos el flujo vertical con un espacio cómodo entre la foto y los botones */
+  .acabados-showcase {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    gap: 25px !important; 
+    width: 100% !important;
+    padding: 0 !important;
+  }
+
+  /* El contenedor de la imagen toma el ancho total de la pantalla táctil */
+  .acabados-image-container {
+    width: 100% !important;
+    max-width: 100% !important;
+    display: block !important;
+  }
+
+  /* La imagen pasa a ser de borde a borde con una altura proporcionada y prolija */
+  .acabados-img {
+    width: 100% !important;
+    height: auto !important;        /* LA CLAVE: Deja que la altura crezca proporcionalmente al ancho */
+    max-height: 40vh !important;    /* Límite seguro para que no tape los botones en pantallas muy altas */
+    display: block !important;
+    object-fit: contain !important; /* Garantiza que entre completa sin mutilar bordes */
+    object-position: center !important;
+  }
+
+  /* La lista de selectores recupera los márgenes estándar de la web */
+  .acabados-list {
+    display: flex !important;
+    flex-direction: column !important;
+    width: calc(100% - 40px) !important; /* Deja espacio de 20px a cada lado */
+    margin-left: 20px !important;
+    margin-right: 20px !important;
+    max-width: 100% !important;
+  }
+
+  /* Ajustamos el tamaño del texto y los paddings de los botones para pantallas táctiles */
+  .acabados-btn {
+    font-size: 1.05rem !important;
+    padding: 16px 0 !important; /* Reducimos sutilmente el alto para que entre el menú entero */
+    text-align: left !important;
+    width: 100% !important;
+  }
+
+  .panel-inner-content{
+    padding: 0 !important;
+  }
+}
+
+
+/* SECCIÓN VIDEO FULL-WIDTH */
+.video-full-section {
+  width: 100%;
+  height: 60vh; /* O podés usar 100vh si querés que ocupe toda la pantalla de alto también */
+  overflow: hidden;
+  background-color: var(--color-oscuro);
+}
+
+.video-full-element {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Hace que el video cubra todo el espacio sin estirarse raro */
+  display: block;
+}
+
+/* SECCIÓN ESTADÍSTICAS PAGINA DETALLE */
+.stats-section {
+    background-image: url('imagenes/grid3.png');
+    background-color: var(--color-oscuro);
+  
+  /* Configuraciones para la trama: */
+  background-repeat: repeat;    /* Hace que la textura se repita en mosaico infinitamente */
+  background-size: auto;        /* Mantiene el tamaño real de los píxeles de la trama */
+  background-attachment: fixed;
+  background-position: 0 0;
+  /* FUSIONA LA TRAMA CON TU COLOR: 
+     'multiply' la oscurece e integra, 'overlay' la suaviza. Proba cuál te queda mejor */
+  background-blend-mode: multiply;
+  padding-bottom: 150px;
+  padding-top: 50px;
+  padding-left: 20px;
+  padding-right: 20px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.stats-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* Crea las 4 columnas idénticas */
+  gap: 30px;
+  text-align: center;
+}
+
+.stats-number {
+  display: block;
+  color: var(--color-naranja); /* Color naranja característico de la imagen */
+  font-size: clamp(2.2rem, 4.5vw, 5rem); /* Escala de tamaño fluida según la pantalla */
+  font-weight: 800;
+  line-height: 1;
+  margin-bottom: 12px;
+}
+
+.stats-label {
+  color: var(--color-naranja); /* Tono oscuro para el texto inferior */
+  font-size: 1rem;
+  font-weight: 600;
+  margin: 0;
+  letter-spacing: -0.1px;
+}
+
+/* 1. ESTILO GENERAL (Para computadoras y pantallas grandes) */
+.br-mobile-only {
+    display: none; /* Oculto en escritorio para que quede en un solo renglón */
+}
+
+/* 2. ADAPTACIÓN PARA MÓVILES */
+@media (max-width: 479px) {
+    /* ... Tus otros estilos mobile ... */
+
+    /* Activamos el salto de línea únicamente en celulares */
+    .br-mobile-only {
+        display: block !important;
+        content: "" !important; /* Asegura el comportamiento correcto del quiebre */
+    }
+}
+
+
+/* EFECTO ENTRADA ESCALONADA (Opción 2) */
+
+/* Estado inicial oculto y levemente más chico/abajo */
+/* EFECTO ENTRADA ESCALONADA (Más lento) */
+
+.stats-item {
+  opacity: 0;
+  transform: scale(0.92) translateY(15px);
+  
+  /* CAMBIO: Aumentado de 0.7s a 1.2s para una transición más suave y lenta */
+  transition: opacity 1.2s cubic-bezier(0.25, 1, 0.5, 1),
+              transform 1.2s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+/* Estado activo cuando entra en pantalla */
+.stats-grid.reveal-active .stats-item {
+  opacity: 1;
+  transform: scale(1) translateY(0);
+}
+
+/* CAMBIO: Retrasos secuenciales más espaciados (pasaron de 0.15s a 0.25s) */
+.stats-grid.reveal-active .stats-item:nth-child(1) { transition-delay: 0s; }
+.stats-grid.reveal-active .stats-item:nth-child(2) { transition-delay: 0.25s; }
+.stats-grid.reveal-active .stats-item:nth-child(3) { transition-delay: 0.5s; }
+.stats-grid.reveal-active .stats-item:nth-child(4) { transition-delay: 0.75s; }
+
+/* Adaptación para pantallas móviles */
+@media (max-width: 768px) {
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr); /* Se transforma en 2x2 en celulares */
+    gap: 40px 20px;
+  }
+}

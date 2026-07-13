@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Raíz — Restauración de Autor & Escuela Técnica</title>
+    <!-- Importación de Google Fonts: DM Sans -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap" rel="stylesheet">
+    <!-- Vinculación del archivo CSS externo -->
+        <script src="https://cdn.tailwindcss.com"></script>
+        <link rel="stylesheet" href="styles.css">      
+</head>
+<body>
+
+    <!-- MENÚ / HEADER -->
+<header class="header">
+    <a href="index.html" class="logo">RAÍZ</a>
+
+    <!-- NUEVO: Botón Hamburguesa (Usa las mismas clases e IDs que lee el CSS y JS) -->
+    <button class="menu-toggle" id="menu-toggle" aria-label="Abrir menú">
+        <span></span>
+        <span></span>
+        <span></span>
+    </button>
+
+    <!-- AGREGADO: id="nav-menu" para que el JS lo encuentre al hacer click -->
+    <nav class="nav-menu" id="nav-menu">
+        <a href="#metodologia" class="nav-link">Metodología</a>
+        <a href="#herramientas-seccion" class="nav-link">Detalles técnicos</a>
+        <a href="#curso" class="nav-link">Comprar curso</a>
+    </nav>   
+</header>
+
+    <!-- SECCIÓN 1: HERO -->
+    <section class="hero">
+        <div class="hero-media-bg hero-pagina-2"></div>
+        <div class="hero-content">
+            <!-- <span class="volanta-crema">Transformar el mobiliario desde su raíz</span> -->
+            <h1>Formación en restauración <span class="txt-oculto"> integral</span></h1>
+            <p>Un programa diseñado para dominar la restauración<span class="txt-extra">, análisis del material, ingeniería estructural y el rediseño contemporáneo.</span></p>
+            <!-- From Uiverse.io by nathAd17 (Optimizado para Tailwind v4 como enlace) -->
+<!-- Versión con Súper Padding optimizada para Tailwind v4 -->
+<a href="#curso" class="inline-flex justify-center gap-2 items-center shadow-xl text-lg bg-[#ff510d] text-[#f7e8d7] lg:font-semibold isolation-auto border-2 border-[#ff510d] hover:border-[#f7e8d7] before:absolute before:w-full before:transition-all before:duration-700 before:hover:w-full before:-left-full before:hover:left-0 before:rounded-full before:bg-[#f7e8d7] hover:text-[#ff510d] before:-z-10 before:aspect-square before:hover:scale-150 before:hover:duration-700 relative z-10 px-4 py-2 overflow-hidden group no-underline"
+>   <span>Unirme</span> <span class="txt-recortar">a la transformación</span>
+  <svg class="w-4 h-4 justify-end text-[#f7e8d7] ease-linear duration-300 group-hover:text-[#ff510d] group-hover:rotate-90 rotate-45 transition-all" viewBox="0 0 16 19" xmlns="http://www.w3.org/2000/svg"> 
+    <path d="M7 18C7 18.5523 7.44772 19 8 19C8.55228 19 9 18.5523 9 18H7ZM8.70711 0.292893C8.31658 -0.0976311 7.68342 -0.0976311 7.29289 0.292893L0.928932 6.65685C0.538408 7.04738 0.538408 7.68054 0.928932 8.07107C1.31946 8.46159 1.95262 8.46159 2.34315 8.07107L8 2.41421L13.6569 8.07107C14.0474 8.46159 14.6805 8.46159 15.0711 8.07107C15.4616 7.68054 15.4616 7.04738 15.0711 6.65685L8.70711 0.292893ZM9 18L9 1H7L7 18H9Z" class="fill-current"></path>
+  </svg>
+</a>
+        </div>
+    </section>
+
+    <section id="metodologia" class="metodologia-container">
+  <div class="metodologia-left">
+    <h2>METODOLOGÍA</h2>
+    <p class="bajada">
+      Diseñada para diagnosticar la raíz del problema, aplicar soluciones técnicas y proyectar un rediseño.
+    </p>
+  </div>
+
+  <div class="metodologia-right" id="fichero-container">
+    
+    <div class="fichero-card" onclick="toggleCard(this)">
+      <div class="fichero-content">
+        <h3>DIAGNÓSTICO</h3>
+        <div class="fichero-body">
+          <p>Análisis profundo del estado actual del proyecto. Identificamos fallas, vulnerabilidades y oportunidades de mejora estructural antes de intervenir.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="fichero-card" onclick="toggleCard(this)">
+      <div class="fichero-content">
+        <h3>REPARACIÓN</h3>
+        <div class="fichero-body">
+          <p>Ejecución de soluciones técnicas inmediatas. Corregimos los errores detectados en la fase previa garantizando estabilidad y rendimiento óptimo.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="fichero-card" onclick="toggleCard(this)">
+      <div class="fichero-content">
+        <h3>REDISEÑO</h3>
+        <div class="fichero-body">
+          <p>Evolución estética y funcional. Proyectamos una nueva interfaz y experiencia visual alineada a las necesidades actuales del usuario.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECCIÓN ESTADÍSTICAS -->
+<section class="stats-section">
+  <div class="stats-container">
+    
+    <div class="stats-grid">
+      
+      <div class="stats-item">
+        <span class="stats-number">12</span>
+        <p class="stats-label">semanas de duración</p>
+      </div>
+
+      <div class="stats-item">
+        <span class="stats-number">8</span>
+        <p class="stats-label">personas <br class="br-mobile-only">por clase</p>
+      </div>
+
+      <div class="stats-item">
+        <span class="stats-number">1:1</span>
+        <p class="stats-label">atención personalizada</p>
+      </div>
+
+      <div class="stats-item">
+        <span class="stats-number">+150</span>
+        <p class="stats-label">personas ya lo hicieron</p>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+    <!-- SECCIÓN VIDEO FULL WIDTH -->
+<section class="video-full-section">
+  <video class="video-full-element" src="imagenes/videodetalle.mp4" muted loop playsinline></video>
+</section>
+
+
+<!-- SECCION 3 COLUMNAS ICONOS -->
+<section class="columnasiconos">
+    <!-- Bloque Inferior: 3 Columnas Informativas -->
+    <div class="bottom-info-block">
+        <div class="columns-info-grid">
+            
+            <!-- Columna 1 -->
+            <div class="info-col">
+    <div class="info-icon-wrapper">
+        <!-- Icono: ordenador-01 (CORREGIDO) -->
+        <svg id="Layer_1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 384" fill="currentColor">
+            <path d="M384,17.96v275.46h-130.5s9.1,36.58,9.1,36.58l23.94.43,8.96,34.85H88.5l8.96-34.85,23.94-.43,9.1-36.58H0V17.96h384ZM234,29.19H11.25v192l-.02,1.12h361.51v-1.12s0-192,0-192h-138.75ZM108,233.54H11.25v48.65h361.5v-48.65H108ZM204,330.11h46.5l-9.47-36.58-98.57.23-8.96,36.35h70.5ZM106.88,341.33l-3.38,12.73h177l-3.38-12.73H106.88Z"/>
+            <rect x="159" y="252.26" width="66" height="11.23"/>
+        </svg>
+    </div>
+    <h4>Contenido audiovisual</h4>
+    <p>Material técnico digital con descargables paso a paso.</p>
+</div>
+            
+            <!-- Columna 2 -->
+            <div class="info-col">
+                <div class="info-icon-wrapper">
+                    <!-- Icono: certificado-01 -->
+                    <svg id="Layer_1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 409.6 409.6" fill="currentColor">
+                        <polygon points="360.8 342.53 396.8 342.53 396.8 67.87 108 67.87 108 55.89 409.6 55.89 409.6 354.51 0 354.51 0 55.89 110.87 55.89 110.87 67.87 12.8 67.87 12.8 342.53 340 342.53 360.8 342.53"/>
+                        <polygon points="334.22 318.73 364.08 318.73 364.08 90.87 124.49 90.87 124.49 80.93 374.7 80.93 374.7 328.67 34.9 328.67 34.9 80.93 126.88 80.93 126.88 90.87 45.52 90.87 45.52 318.73 316.96 318.73 334.22 318.73"/>
+                        <rect x="86.4" y="250.31" width="236.8" height="11.58"/>
+                        <rect x="86.4" y="215.58" width="198.4" height="12.78"/>
+                        <rect x="145.6" y="283.45" width="177.6" height="11.98"/>
+                        <polygon points="323.2 215.58 323.2 228.35 301.6 228.35 301.6 216.78 302.8 215.58 323.2 215.58"/>
+                        <rect x="180.03" y="135.73" width="49.54" height="12.78"/>
+                        <rect x="159.35" y="161.28" width="90.89" height="11.98"/>
+                        <rect x="86.4" y="283.45" width="16.8" height="11.98"/>
+                        <rect x="116" y="283.45" width="16.8" height="11.98"/>
+                    </svg>
+                </div>
+                <h4>Certificado de Oficio</h4>
+                <p>Acreditación técnica al completar la totalidad del curso.</p>
+            </div>
+            
+            <!-- Columna 3 -->
+            <div class="info-col">
+                <div class="info-icon-wrapper">
+                    <!-- Icono: charla-01 -->
+                    <svg id="Layer_1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 409.6 337.6" fill="currentColor">
+                        <path d="M0,114.98h264.8v174.06H114l-57.6,48.7h-14v-47.51c-.7-1.14-1.59-1.1-2.76-1.24-12.19-1.43-27.15,1.15-39.64.04V114.98ZM252.8,126.95H12v150.11h41.2l1.2,1.2v45.11l54.8-46.31h143.6V126.95Z"/>
+                        <path d="M409.6.8v162.08c-5.83.66-13.33-1.45-18.4,1.2v47.51h-14l-37.6-48.7h-68.4v-11.98h74.8l33.2,43.12v-41.92l1.2-1.2h17.2V12.78H120.8v95.41c-3.01,2.49-8.21.67-12,1.2V.8h300.8Z"/>
+                        <rect x="216.8" y="91.02" width="129.6" height="11.98"/>
+                        <rect x="150.4" y="60.68" width="78.4" height="11.98"/>
+                        <rect x="223.2" y="31.14" width="68.8" height="11.98"/>
+                        <rect x="240.8" y="60.68" width="66.4" height="11.98"/>
+                        <rect x="150.4" y="91.02" width="54.4" height="11.98"/>
+                        <path d="M211.2,31.14l-.35,11.23c-.99,1.42-9.54.77-11.7.4l-.75-11.63h12.8Z"/>
+                        <rect x="150.4" y="31.14" width="12" height="11.98"/>
+                        <path d="M186.4,31.14v11.98l-11.25-.35c-1.63-1.13-.35-9.27-.75-11.63h12Z"/>
+                        <path d="M198.4,211.59v11.98H37.2c-2.49-3-.67-8.19-1.2-11.98h162.4Z"/>
+                        <path d="M120.8,162.88H36v-11.98h83.6c2.49,3,.67,8.19,1.2,11.98Z"/>
+                        <rect x="78.4" y="181.25" width="66.4" height="11.98"/>
+                        <rect x="108.8" y="241.13" width="60" height="11.98"/>
+                        <rect x="36" y="181.25" width="30.4" height="11.98"/>
+                        <rect x="36" y="241.13" width="24" height="11.98"/>
+                        <rect x="72" y="241.13" width="24" height="11.98"/>
+                    </svg>
+                </div>
+                <h4>Red Profesional</h4>
+                <p>Acceso a una comunidad de profesionales y oportunidades.</p>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- NUEVA SECCIÓN APARTE: HERRAMIENTAS -->
+<section id="herramientas-seccion">
+  
+  <!-- Parte 1: Contenedor para el título y subtítulo (alineados al ancho estándar de tu web) -->
+  <div class="tecnica-container">
+    <h2>Herramientas del taller</h2>
+    <!-- <p class="herramientas-intro-subtitle">Algunas de las que vamos a usar</p> -->
+  </div>
+  
+  <!-- Parte 2: Contenedor de ancho completo para la imagen y los hotspots interactivos -->
+  <div class="interactive-showcase-fullwidth">
+    <div class="interactive-showcase__wrapper">
+      
+      <!-- Imagen principal -->
+      <img src="imagenes/herramientas3.png" alt="Mesa de herramientas" class="interactive-showcase__img">
+
+     
+<div class="hotspot hotspot--right" style="top: 65%; left: 26.2%;">
+        <div class="hotspot__button">+</div>
+        <div class="hotspot__details">
+          <span class="hotspot__line"></span>
+          <span class="hotspot__text">Martillo de carpintero</span>
+        </div>
+      </div>
+      
+      <div class="hotspot hotspot--left" style="top: 31%; left: 70%;">
+        <div class="hotspot__button">+</div>
+        <div class="hotspot__details">
+          <span class="hotspot__text">Prensas sargento</span>
+          <span class="hotspot__line"></span>
+        </div>
+      </div>
+
+      <!-- Botón 3: Arriba Centro -->
+      <div class="hotspot hotspot--right" style="top: 30%; left: 32.5%;">
+        <div class="hotspot__button">+</div>
+        <div class="hotspot__details">
+          <span class="hotspot__line"></span>
+          <span class="hotspot__text">Destornilladores</span>
+        </div>
+      </div>
+
+      <div class="hotspot hotspot--left" style="top: 55%; left: 74.8%;">
+        <div class="hotspot__button">+</div>
+        <div class="hotspot__details">
+          <span class="hotspot__text">Lijas</span>
+          <span class="hotspot__line"></span>
+        </div>
+      </div>
+
+      <div class="hotspot hotspot--left" style="top: 78%; left: 65.5%;">
+        <div class="hotspot__button">+</div>
+        <div class="hotspot__details">
+          <span class="hotspot__text">Lijadora orbital</span>
+          <span class="hotspot__line"></span>
+        </div>
+      </div>
+
+      <!-- Botón 5: Izquierda Abajo -->
+      <div class="hotspot hotspot--left" style="top: 54%; left: 47.8%;">
+        <div class="hotspot__button">+</div>
+        <div class="hotspot__details">
+          <span class="hotspot__text">Formones</span>
+          <span class="hotspot__line"></span>
+        </div>
+      </div>
+
+      <div class="hotspot hotspot--left" style="top: 69%; left: 50%;">
+        <div class="hotspot__button">+</div>
+        <div class="hotspot__details">
+          <span class="hotspot__text">Garlopa manual</span>
+          <span class="hotspot__line"></span>
+        </div>
+      </div>
+
+      <div class="hotspot hotspot--right" style="top: 54%; left: 56%;">
+        <div class="hotspot__button">+</div>
+        <div class="hotspot__details">
+          <span class="hotspot__line"></span>
+          <span class="hotspot__text">Gubias</span>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+
+</section>
+
+<!-- SECCIÓN ESPECIFICACIONES (AHORA CON 2 COLUMNAS) -->
+<section id="especificaciones">
+  <div class="tecnica-container">
+    <h2 class="h2-esp-margen">COMPONENTES ESENCIALES</h2>
+
+    <!-- Contenedor de Columnas (Ahora quedan 2) -->
+    <div class="tecnica-columns has-active">
+      
+      <div class="tecnica-col active" data-target="materiales">
+        <div class="tecnica-col-header">
+          <h3>MATERIALES</h3>
+          <span class="tecnica-icon">-</span>
+        </div>
+        <p class="tecnica-col-subtitle">Básicos en la restauración</p>
+      </div>
+
+      <div class="tecnica-col" data-target="acabados">
+        <div class="tecnica-col-header">
+          <h3>ACABADOS</h3>
+          <span class="tecnica-icon">+</span>
+        </div>
+        <p class="tecnica-col-subtitle">Los más utilizados en muebles</p>
+      </div>
+
+    </div>
+
+    <!-- Contenedor de Paneles Desplegables -->
+    <div class="tecnica-panels">
+      
+      <!-- PANEL 1: MATERIALES (INTEGRADO CON DRAG & DROP) -->
+      <div class="tecnica-panel active" id="materiales">
+        <div class="panel-inner-content">
+          
+          <div class="interactive-materials-section">
+            
+            <!-- Primera fila: Selector de Materiales -->
+            <div class="materials-row">
+              <div class="material-slot" data-material="1">
+                <img src="imagenes/roble.png" alt="Material 1" class="draggable-material">
+              </div>
+              <div class="material-slot" data-material="2">
+                <img src="imagenes/bronce.png" alt="Material 2" class="draggable-material">
+              </div>
+              <div class="material-slot" data-material="3">
+                <img src="imagenes/nogal.png" alt="Material 3" class="draggable-material">
+              </div>
+              <div class="material-slot" data-material="4">
+                <img src="imagenes/ratan.png" alt="Material 4" class="draggable-material">
+              </div>
+            </div>
+
+            <!-- Segunda fila: Zona de la mesa de trabajo -->
+            <div class="workspace-row">
+              <div class="drop-zone-container" id="dropZone">
+                <img src="imagenes/mesa.png" alt="Mesa de trabajo" class="workspace-table" draggable="false">
+                
+              <div class="workspace-instruction" id="workspaceInstruction">
+                 Arrastra un material a la mesa
+              </div>
+
+                <!-- Contenedor del material activo sobre la mesa -->
+                <div class="placed-material-holder" id="placedMaterialHolder"></div>
+                
+                <!-- Grid de información técnica -->
+                <div class="spec-cards-grid" id="specCardsGrid">
+                  <div class="spec-card">
+                    <span class="card-title2">Nombre</span>
+                    <span class="card-value" data-prop="nombre">-</span>
+                  </div>
+                  <div class="spec-card">
+                    <span class="card-title2">Origen</span>
+                    <span class="card-value" data-prop="origen">-</span>
+                  </div>
+                  <div class="spec-card">
+                    <span class="card-title2">Característica</span>
+                    <span class="card-value" data-prop="caracteristica">-</span>
+                  </div>
+                  <div class="spec-card">
+                    <span class="card-title2">Uso</span>
+                    <span class="card-value" data-prop="uso">-</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div><!-- .interactive-materials-section -->
+
+        </div>
+      </div>
+
+      <!-- PANEL 2: ACABADOS -->
+      <div class="tecnica-panel" id="acabados">
+        <div class="panel-inner-content">
+          <div class="acabados-showcase">
+            <!-- Contenedor Izquierdo: Imagen que cambia -->
+            <div class="acabados-image-container">
+              <img id="acabados-display-img" src="imagenes/barniz.png" alt="Barniz" class="acabados-img">
+            </div>
+
+            <!-- Contenedor Derecho: Palabras/Selectores -->
+            <div class="acabados-list">
+              <button class="acabados-btn active" data-image="imagenes/barniz.png">Barniz</button>
+              <button class="acabados-btn" data-image="imagenes/tiza.png">Pintura a la tiza</button>
+              <button class="acabados-btn" data-image="imagenes/laca.png">Laca</button>
+              <button class="acabados-btn" data-image="imagenes/cera.png">Cera</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section class="frase-section">
+  <div class="frase-container">
+    <p class="frase-linea-1">El oficio<span class="palabra-ocultable"> tradicional</span> elevado</p>
+    <p class="frase-linea-2">a la disciplina del diseño</p>
+  </div>
+</section>
+
+    <!-- SECCIÓN 7: IMAGEN GRANDE E INFO CURSO -->
+    <section id="curso" class="cta-course-section">
+    
+    <div class="cta-content-side">
+        <span class="volanta-fondooscuro">ÚLTIMOS CUPOS</span>
+        <h2>Tu proyecto empieza acá</h2>
+        <p>Un curso diseñado en cada etapa del proceso de restauración mediante <br> teoría, técnica y experiencia de taller</p>
+
+        
+        <!-- SECCIÓN DE BENEFICIOS EN 3 COLUMNAS -->
+        <div class="course-benefits">
+            <div class="benefit-item">
+                <strong>CUPOS LIMITADOS</strong>
+                <span>para garantizar calidad</span>
+            </div>
+            <div class="benefit-item">
+                <strong>CUOTAS SIN INTERÉS</strong>
+                <span>con forma de pago</span>
+            </div>
+            <div class="benefit-item">
+                <strong>CERTIFICADO</strong>
+                <span>de finalización del curso</span>
+            </div>
+        </div>
+        
+        <div class="purchase-actions">
+    <div class="precio">$120.000</div> <!-- Cambiá por tu precio real -->
+    
+    <a href="#cursos" class="inline-flex justify-center gap-2 items-center shadow-xl text-lg bg-[#4c1505] text-[#f7e8d7] lg:font-semibold isolation-auto border-2 border-[#4c1505] hover:border-[#f7e8d7] before:absolute before:w-full before:transition-all before:duration-700 before:hover:w-full before:-left-full before:hover:left-0 before:rounded-full before:bg-[#f7e8d7] hover:text-[#4c1505] before:-z-10 before:aspect-square before:hover:scale-150 before:hover:duration-700 relative z-10 px-4 py-2 overflow-hidden group no-underline">
+        Comprar curso
+        <svg class="w-4 h-4 justify-end text-[#f7e8d7] ease-linear duration-300 group-hover:text-[#4c1505] group-hover:rotate-90 rotate-45 transition-all" viewBox="0 0 16 19" xmlns="http://www.w3.org/2000/svg"> 
+            <path d="M7 18C7 18.5523 7.44772 19 8 19C8.55228 19 9 18.5523 9 18H7ZM8.70711 0.292893C8.31658 -0.0976311 7.68342 -0.0976311 7.29289 0.292893L0.928932 6.65685C0.538408 7.04738 0.538408 7.68054 0.928932 8.07107C1.31946 8.46159 1.95262 8.46159 2.34315 8.07107L8 2.41421L13.6569 8.07107C14.0474 8.46159 14.6805 8.46159 15.0711 8.07107C15.4616 7.68054 15.4616 7.04738 15.0711 6.65685L8.70711 0.292893ZM9 18L9 1H7L7 18H9Z" class="fill-current"></path>
+        </svg>
+    </a>
+</div>
+    </div>
+    <div class="cta-image-side">
+        <img src="imagenes/integral3.png" alt="Masterclass Raíz Mobiliario">
+    </div>
+</section>
+
+
+
+
+        <!-- SECCIÓN 10: FOOTER -->
+    <footer class="footer">
+        <div class="footer-main">
+            <div class="footer-brand">
+                <h2 class="logo">RAÍZ</h2>
+                <p>El nuevo eje técnico y educativo de la carpintería y restauración moderna.</p>
+            </div>
+            <div class="footer-links">
+                <p class="footer-title">Navegación</p>
+                <ul>
+                  <li><a href="index.html">Inicio</a></li>
+                    <li><a href="#metodologia">Metodología</a></li>
+                    <li><a href="#herramientas-seccion">Detalles técnicos</a></li>
+                    <li><a href="#curso">Comprar curso</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <p class="footer-title">Redes</p>
+                <ul>
+                    <li><a href="#" target="_blank" rel="noopener">Instagram</a></li>
+                    <li><a href="#" target="_blank" rel="noopener">Pinterest</a></li>
+                    <li><a href="#" target="_blank" rel="noopener">YouTube</a></li>
+                    <li><a href="#curso">Biblioteca UI</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <p class="footer-title">Contacto</p>
+                <ul>
+                    <li><a href="mailto:info@raizestudio.com">raizcontacto@gmail.com</a></li>
+                    <li><a href="mailto:info@raizestudio.com">(+54) 9 11 2233 2233</a></li>
+                    <li><p style="font-size: 0.95rem; opacity: 0.7;">Palermo, CABA, Argentina</p></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 RAÍZ Estudio. Todos los derechos reservados.</p>
+            <p>Perspectiva Proyectual & Vanguardia</p>
+        </div>
+    </footer>
+
+<script src="script.js" defer></script>
+
+</body>
+</html>
